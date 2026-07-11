@@ -16,19 +16,20 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "src/main.ts",
-            "tsConfig": "tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "src/styles.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
-            ]
-          },
+  "outputPath": "dist/PRAS",
+  "browser": "src/main.ts",
+  "tsConfig": "tsconfig.app.json",
+  "assets": [
+    {
+      "glob": "**/*",
+      "input": "public"
+    }
+  ],
+  "styles": [
+    "src/styles.css",
+    "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+  ]
+},
           "configurations": {
             "production": {
               "budgets": [
