@@ -1,0 +1,353 @@
+<section class="docs-header">
+
+    <div>
+
+        <h1>API Documentation</h1>
+
+        <p>
+            Everything developers need to integrate
+            PRAS Password Recovery API.
+        </p>
+
+    </div>
+
+    <button class="swagger-btn">
+
+        <i class="fa-solid fa-book-open"></i>
+
+        Open Swagger
+
+    </button>
+
+</section>
+
+<div class="docs-layout">
+
+    <!-- ========================= -->
+    <!-- SIDEBAR -->
+    <!-- ========================= -->
+
+    <aside class="docs-sidebar">
+
+        <h3>Quick Navigation</h3>
+
+        <a href="#overview">
+
+            <i class="fa-solid fa-house"></i>
+
+            Overview
+
+        </a>
+
+        <a href="#authentication">
+
+            <i class="fa-solid fa-key"></i>
+
+            Authentication
+
+        </a>
+
+        <a href="#endpoints">
+
+            <i class="fa-solid fa-code"></i>
+
+            Endpoints
+
+        </a>
+
+        <a href="#errors">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            Error Codes
+
+        </a>
+
+    </aside>
+
+    <!-- ========================= -->
+    <!-- CONTENT -->
+    <!-- ========================= -->
+
+    <section class="docs-content">
+
+        <!-- ========================= -->
+        <!-- OVERVIEW -->
+        <!-- ========================= -->
+
+        <div class="doc-card" id="overview">
+
+            <h2>API Overview</h2>
+
+            <p>
+
+                PRAS provides secure enterprise REST APIs for password recovery,
+                OTP verification and password reset.
+
+            </p>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- AUTH -->
+        <!-- ========================= -->
+
+        <div class="doc-card" id="authentication">
+
+            <h2>Authentication</h2>
+
+            <p>
+
+                Every request must include your API Key.
+
+            </p>
+
+            <code>
+
+https://api.pras.co.tz/api
+
+            </code>
+
+            <pre>
+
+Authorization: Bearer YOUR_API_KEY
+
+            </pre>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- ENDPOINTS -->
+        <!-- ========================= -->
+
+        <div
+            class="doc-card"
+            id="endpoints">
+
+            <h2>
+
+                Available Endpoints
+
+            </h2>
+
+            <div
+
+                class="endpoint"
+
+                *ngFor="let endpoint of endpoints; let i=index">
+
+                <!-- Header -->
+
+                <div
+
+                    class="endpoint-header"
+
+                    (click)="toggle(i)">
+
+                    <div class="left">
+
+                        <span
+
+                            class="method"
+
+                            [ngClass]="endpoint.method.toLowerCase()">
+
+                            {{ endpoint.method }}
+
+                        </span>
+
+                        <div>
+
+                            <h3>
+
+                                {{ endpoint.title }}
+
+                            </h3>
+
+                            <code>
+
+                                {{ endpoint.url }}
+
+                            </code>
+
+                        </div>
+
+                    </div>
+
+                    <i
+
+                        class="fa-solid"
+
+                        [class.fa-chevron-down]="openedIndex!==i"
+
+                        [class.fa-chevron-up]="openedIndex===i">
+
+                    </i>
+
+                </div>
+
+                <!-- BODY -->
+
+                <div
+
+                    class="endpoint-body"
+
+                    *ngIf="openedIndex===i">
+
+                    <p>
+
+                        {{ endpoint.description }}
+
+                    </p>
+
+                    <!-- ========================= -->
+                    <!-- CODE TABS -->
+                    <!-- ========================= -->
+
+                    <h4>
+
+                        Code Samples
+
+                    </h4>
+
+                    <div class="code-tabs">
+
+                        <button
+
+                            [class.active]="endpoint.activeTab==='curl'"
+
+                            (click)="setTab(endpoint,'curl'); $event.stopPropagation()">
+
+                            cURL
+
+                        </button>
+
+                        <button
+
+                            [class.active]="endpoint.activeTab==='spring'"
+
+                            (click)="setTab(endpoint,'spring'); $event.stopPropagation()">
+
+                            Spring Boot
+
+                        </button>
+
+                        <button
+
+                            [class.active]="endpoint.activeTab==='angular'"
+
+                            (click)="setTab(endpoint,'angular'); $event.stopPropagation()">
+
+                            Angular
+
+                        </button>
+
+                        <button
+
+                            [class.active]="endpoint.activeTab==='javascript'"
+
+                            (click)="setTab(endpoint,'javascript'); $event.stopPropagation()">
+
+                            JavaScript
+
+                        </button>
+
+                    </div>
+
+                    <!-- ========================= -->
+                    <!-- CODE -->
+                    <!-- ========================= -->
+
+                    <div class="json-card">
+
+                        <button
+
+                            class="copy-btn"
+
+                            (click)="copy(getCurrentCode(endpoint)); $event.stopPropagation()">
+
+                            <i class="fa-regular fa-copy"></i>
+
+                        </button>
+
+                        <pre>{{ getCurrentCode(endpoint) }}</pre>
+
+                    </div>
+
+                    <!-- ========================= -->
+                    <!-- SUCCESS -->
+                    <!-- ========================= -->
+
+                    <h4>
+
+                        Success Response
+
+                    </h4>
+
+                    <div class="json-card success">
+
+                        <button
+
+                            class="copy-btn"
+
+                            (click)="copy(responseExample)">
+
+                            <i class="fa-regular fa-copy"></i>
+
+                        </button>
+
+                        <pre>{{ responseExample }}</pre>
+
+                    </div>
+
+                    <!-- ========================= -->
+                    <!-- ERROR -->
+                    <!-- ========================= -->
+
+                    <h4 id="errors">
+
+                        Error Response
+
+                    </h4>
+
+                    <div class="json-card error">
+
+                        <button
+
+                            class="copy-btn"
+
+                            (click)="copy(errorExample)">
+
+                            <i class="fa-regular fa-copy"></i>
+
+                        </button>
+
+                        <pre>{{ errorExample }}</pre>
+
+                    </div>
+
+                    <!-- ========================= -->
+                    <!-- TRY API -->
+                    <!-- ========================= -->
+
+                    <div class="try-api">
+
+                        <button>
+
+                            <i class="fa-solid fa-play"></i>
+
+                            Try API
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>

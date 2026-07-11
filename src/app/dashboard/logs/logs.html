@@ -1,0 +1,319 @@
+<section class="page-header">
+
+    <div>
+
+        <h1>API Logs</h1>
+
+        <p>Monitor every API request made to PRAS.</p>
+
+    </div>
+
+    <button class="export-btn">
+
+        <i class="fa-solid fa-file-export"></i>
+
+        Export Logs
+
+    </button>
+
+</section>
+
+<!-- Statistics -->
+
+<section class="stats-grid">
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-server"></i>
+
+        <h2>18,420</h2>
+
+        <p>Total Requests</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        <h2>17,950</h2>
+
+        <p>Successful</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-triangle-exclamation"></i>
+
+        <h2>470</h2>
+
+        <p>Errors</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-stopwatch"></i>
+
+        <h2>168 ms</h2>
+
+        <p>Avg Response</p>
+
+    </div>
+
+</section>
+
+<!-- Filters -->
+
+<section class="filters">
+
+    <input
+        [(ngModel)]="search"
+        placeholder="Search endpoint, client...">
+
+    <select [(ngModel)]="method">
+
+        <option>All</option>
+        <option>GET</option>
+        <option>POST</option>
+        <option>PUT</option>
+        <option>DELETE</option>
+
+    </select>
+
+    <select [(ngModel)]="status">
+
+        <option>All</option>
+        <option>200</option>
+        <option>401</option>
+        <option>404</option>
+        <option>500</option>
+
+    </select>
+
+</section>
+
+<div class="table-card">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Log ID</th>
+
+<th>Endpoint</th>
+
+<th>Method</th>
+
+<th>Client</th>
+
+<th>Status</th>
+
+<th>Response</th>
+
+<th>Date</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr *ngFor="let log of logs">
+
+<td>{{log.id}}</td>
+
+<td>
+
+<code>{{log.endpoint}}</code>
+
+</td>
+
+<td>
+
+<span
+class="method"
+[ngClass]="log.method.toLowerCase()">
+
+{{log.method}}
+
+</span>
+
+</td>
+
+<td>{{log.client}}</td>
+
+<td>
+
+<span
+class="status"
+[ngClass]="log.status">
+
+{{log.status}}
+
+</span>
+
+</td>
+
+<td>{{log.responseTime}}</td>
+
+<td>{{log.date}}</td>
+
+<td>
+
+<button
+    class="view-btn"
+    (click)="viewLog(log)">
+
+    <i class="fa-solid fa-eye"></i>
+
+    View
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- ================================= -->
+<!-- LOG DETAILS DRAWER -->
+<!-- ================================= -->
+
+<div
+  class="drawer-overlay"
+  *ngIf="showDetails"
+  (click)="closeDrawer()">
+
+  <aside
+    class="log-drawer"
+    (click)="$event.stopPropagation()">
+
+    <div class="drawer-header">
+      <div>
+        <h2>API Log Details</h2>
+        <small>{{ selectedLog?.id }}</small>
+      </div>
+
+      <button (click)="closeDrawer()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Endpoint -->
+    <div class="detail-group">
+      <label>Endpoint</label>
+      <code>{{ selectedLog?.endpoint }}</code>
+    </div>
+
+    <!-- HTTP Method -->
+    <div class="detail-group">
+      <label>HTTP Method</label>
+
+      <span
+        class="method"
+        [ngClass]="selectedLog?.method?.toLowerCase()">
+        {{ selectedLog?.method }}
+      </span>
+    </div>
+
+    <!-- Client -->
+    <div class="detail-group">
+      <label>Client</label>
+      <p>{{ selectedLog?.client }}</p>
+    </div>
+
+    <!-- Status -->
+    <div class="detail-group">
+      <label>Status</label>
+
+      <span
+        class="status"
+        [ngClass]="selectedLog?.status">
+        {{ selectedLog?.status }}
+      </span>
+    </div>
+
+    <!-- Response Time -->
+    <div class="detail-group">
+      <label>Response Time</label>
+      <p>{{ selectedLog?.responseTime }}</p>
+    </div>
+
+    <hr>
+
+    <!-- Request Body -->
+    <h3>Request Body</h3>
+
+    <div class="json-box">
+      <pre>&#123;
+  "email": "user@gmail.com"
+&#125;</pre>
+
+      <button>
+        <i class="fa-solid fa-copy"></i>
+        Copy
+      </button>
+    </div>
+
+    <!-- Response -->
+    <h3>Response</h3>
+
+    <div class="json-box">
+      <pre>&#123;
+  "success": true,
+  "message": "OTP Sent Successfully"
+&#125;</pre>
+
+      <button>
+        <i class="fa-solid fa-copy"></i>
+        Copy
+      </button>
+    </div>
+
+    <hr>
+
+    <!-- Security -->
+    <h3>Security</h3>
+
+    <div class="security-list">
+
+      <div>
+        <i class="fa-solid fa-location-dot"></i>
+        IP Address
+        <span>196.41.90.22</span>
+      </div>
+
+      <div>
+        <i class="fa-solid fa-desktop"></i>
+        Device
+        <span>Chrome / Windows</span>
+      </div>
+
+      <div>
+        <i class="fa-solid fa-key"></i>
+        API Key
+        <span>pras_live_******</span>
+      </div>
+
+      <div>
+        <i class="fa-solid fa-clock"></i>
+        Request Time
+        <span>{{ selectedLog?.date }}</span>
+      </div>
+
+    </div>
+
+  </aside>
+
+</div>

@@ -1,0 +1,1042 @@
+<nav class="navbar" [class.scrolled]="scrolled">
+
+    <div class="container">
+
+        <div class="logo">
+
+            <img src="/img/favicon.png">
+
+            <span>PRAS</span>
+
+        </div>
+
+        <ul class="nav-links" [class.active]="mobileMenu">
+
+            <li>
+                <a href="#home" (click)="closeMenu()">Home</a>
+            </li>
+
+            <li>
+                <a href="#features" (click)="closeMenu()">Features</a>
+            </li>
+
+            <li>
+                <a href="#api" (click)="closeMenu()">API Docs</a>
+            </li>
+
+            <li>
+                <a href="#contact" (click)="closeMenu()">Contact</a>
+            </li>
+
+            <li>
+
+                <a
+                    routerLink="/login"
+                    class="login-btn"
+                    (click)="closeMenu()">
+
+                    Login
+
+                </a>
+
+            </li>
+
+        </ul>
+
+        <button
+            class="menu-btn"
+            (click)="toggleMenu()">
+
+            <i
+                class="fa-solid"
+                [class.fa-bars]="!mobileMenu"
+                [class.fa-xmark]="mobileMenu">
+            </i>
+
+        </button>
+
+    </div>
+
+</nav>
+
+<section
+class="hero"
+id="home">
+
+<div class="shape one"></div>
+<div class="shape two"></div>
+<div class="shape three"></div>
+
+<div class="container hero-container">
+
+<div class="hero-left">
+
+<span class="badge">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+Production Ready Password Recovery API
+
+</span>
+
+<h1>
+
+Secure Password Recovery
+
+<br>
+
+for Modern Applications
+
+</h1>
+
+<p>
+
+PRAS allows businesses to integrate enterprise-grade
+password recovery workflows with OTP verification,
+email delivery and secure password reset APIs.
+
+</p>
+
+<div class="hero-buttons">
+
+<a href="#api" class="primary-btn">
+
+Get Started
+
+</a>
+
+<a href="#features" class="secondary-btn">
+
+Explore Features
+
+</a>
+
+</div>
+
+<div class="hero-stats">
+
+<div>
+
+<h3>99.99%</h3>
+
+<span>API Uptime</span>
+
+</div>
+
+<div>
+
+<h3>150K+</h3>
+
+<span>Recoveries</span>
+
+</div>
+
+<div>
+
+<h3>24/7</h3>
+
+<span>Support</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="hero-right">
+
+<img
+src="/img/hero.png"
+alt="PRAS">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ============================= -->
+<!-- TRUSTED BY -->
+<!-- ============================= -->
+
+<section class="trusted-section">
+
+    <div class="container">
+
+        <span class="section-label">
+            TRUSTED PLATFORM
+        </span>
+
+        <h2>
+            Built for Modern Applications & Enterprise Teams
+        </h2>
+
+        <div class="trusted-grid">
+
+            <div class="trusted-item">
+                <i class="fa-solid fa-building-shield"></i>
+                SaaS Platforms
+            </div>
+
+            <div class="trusted-item">
+                <i class="fa-solid fa-cloud"></i>
+                Cloud Services
+            </div>
+
+            <div class="trusted-item">
+                <i class="fa-solid fa-code"></i>
+                Developers
+            </div>
+
+            <div class="trusted-item">
+                <i class="fa-solid fa-lock"></i>
+                Security Teams
+            </div>
+
+            <div class="trusted-item">
+                <i class="fa-solid fa-server"></i>
+                Enterprise APIs
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ============================= -->
+<!-- WHY PRAS -->
+<!-- ============================= -->
+
+<section class="why-section" id="features">
+
+<div class="container">
+
+<div class="section-title">
+
+<span>
+
+Why Choose PRAS
+
+</span>
+
+<h2>
+
+Enterprise Password Recovery
+Built for Scale
+
+</h2>
+
+<p>
+
+Everything required to build a secure,
+modern and reliable password recovery service.
+
+</p>
+
+</div>
+
+<div class="why-grid">
+
+<div class="why-card">
+
+<div class="icon">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+</div>
+
+<h3>
+
+Military Grade Security
+
+</h3>
+
+<p>
+
+OTP validation, secure tokens,
+encrypted workflows and enterprise security.
+
+</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="icon">
+
+<i class="fa-solid fa-bolt"></i>
+
+</div>
+
+<h3>
+
+Lightning Fast API
+
+</h3>
+
+<p>
+
+Optimized backend delivering
+responses in milliseconds.
+
+</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="icon">
+
+<i class="fa-solid fa-envelope-circle-check"></i>
+
+</div>
+
+<h3>
+
+Email Automation
+
+</h3>
+
+<p>
+
+Automatic OTP generation
+and secure email delivery.
+
+</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="icon">
+
+<i class="fa-solid fa-chart-line"></i>
+
+</div>
+
+<h3>
+
+Analytics Dashboard
+
+</h3>
+
+<p>
+
+Monitor every recovery,
+success rate and client activity.
+
+</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="icon">
+
+<i class="fa-solid fa-code-branch"></i>
+
+</div>
+
+<h3>
+
+Easy Integration
+
+</h3>
+
+<p>
+
+Simple REST API with
+clear documentation.
+
+</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="icon">
+
+<i class="fa-solid fa-headset"></i>
+
+</div>
+
+<h3>
+
+24/7 Support
+
+</h3>
+
+<p>
+
+Professional support for
+developers and enterprise clients.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ====================================== -->
+<!-- CORE FEATURES -->
+<!-- ====================================== -->
+
+<section class="features-section" id="api">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>Core Features</span>
+
+            <h2>Everything You Need to Build Secure Password Recovery</h2>
+
+            <p>
+                Powerful APIs, enterprise security and developer-friendly tools
+                to integrate password recovery into any application.
+            </p>
+
+        </div>
+
+        <div class="features-grid">
+
+            <!-- CARD 1 -->
+
+            <div class="feature-card">
+
+                <div class="feature-top">
+
+                    <div class="feature-icon blue">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+
+                    <span class="status live">
+                        <i class="fa-solid fa-circle"></i>
+                        Live API
+                    </span>
+
+                </div>
+
+                <h3>Password Recovery API</h3>
+
+                <p>
+                    Generate secure recovery requests with enterprise-grade
+                    validation.
+                </p>
+
+                <ul>
+
+                    <li><i class="fa-solid fa-check"></i> REST API</li>
+                    <li><i class="fa-solid fa-check"></i> JWT Security</li>
+                    <li><i class="fa-solid fa-check"></i> Token Validation</li>
+
+                </ul>
+
+                <a href="#">
+
+                    Learn More
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+            <!-- CARD 2 -->
+
+            <div class="feature-card">
+
+                <div class="feature-top">
+
+                    <div class="feature-icon green">
+
+                        <i class="fa-solid fa-envelope-circle-check"></i>
+
+                    </div>
+
+                    <span class="status secure">
+
+                        <i class="fa-solid fa-shield"></i>
+
+                        Secure
+
+                    </span>
+
+                </div>
+
+                <h3>Email OTP Service</h3>
+
+                <p>
+
+                    Deliver one-time passwords securely to users with
+                    customizable templates.
+
+                </p>
+
+                <ul>
+
+                    <li><i class="fa-solid fa-check"></i> Gmail SMTP</li>
+                    <li><i class="fa-solid fa-check"></i> OTP Expiration</li>
+                    <li><i class="fa-solid fa-check"></i> Email Templates</li>
+
+                </ul>
+
+                <a href="#">
+
+                    Learn More
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+            <!-- CARD 3 -->
+
+            <div class="feature-card">
+
+                <div class="feature-top">
+
+                    <div class="feature-icon orange">
+
+                        <i class="fa-solid fa-user-lock"></i>
+
+                    </div>
+
+                    <span class="status premium">
+
+                        <i class="fa-solid fa-star"></i>
+
+                        Premium
+
+                    </span>
+
+                </div>
+
+                <h3>OTP Verification</h3>
+
+                <p>
+
+                    Validate user identity before allowing password reset.
+
+                </p>
+
+                <ul>
+
+                    <li><i class="fa-solid fa-check"></i> 6 Digit OTP</li>
+                    <li><i class="fa-solid fa-check"></i> Time Limited</li>
+                    <li><i class="fa-solid fa-check"></i> Retry Protection</li>
+
+                </ul>
+
+                <a href="#">
+
+                    Learn More
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+            <!-- CARD 4 -->
+
+            <div class="feature-card">
+
+                <div class="feature-top">
+
+                    <div class="feature-icon purple">
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                    </div>
+
+                    <span class="status analytics">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        Analytics
+
+                    </span>
+
+                </div>
+
+                <h3>API Analytics</h3>
+
+                <p>
+
+                    Track every request, monitor usage and recovery success.
+
+                </p>
+
+                <ul>
+
+                    <li><i class="fa-solid fa-check"></i> Charts</li>
+                    <li><i class="fa-solid fa-check"></i> Logs</li>
+                    <li><i class="fa-solid fa-check"></i> Reports</li>
+
+                </ul>
+
+                <a href="#">
+
+                    Learn More
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- HOW IT WORKS -->
+<!-- ===================================== -->
+
+<section class="workflow-section">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>How It Works</span>
+
+            <h2>Integrate PRAS in Minutes</h2>
+
+            <p>
+                Simple workflow designed for developers and enterprise
+                applications.
+            </p>
+
+        </div>
+
+        <div class="workflow-grid">
+
+            <div class="step-card">
+
+                <div class="step-number">01</div>
+
+                <div class="step-icon">
+
+                    <i class="fa-solid fa-plug"></i>
+
+                </div>
+
+                <h3>Connect API</h3>
+
+                <p>
+
+                    Register your application and generate a secure API Key.
+
+                </p>
+
+            </div>
+
+            <div class="step-card">
+
+                <div class="step-number">02</div>
+
+                <div class="step-icon">
+
+                    <i class="fa-solid fa-envelope-open-text"></i>
+
+                </div>
+
+                <h3>Send Recovery Request</h3>
+
+                <p>
+
+                    PRAS sends OTP securely to the user's email address.
+
+                </p>
+
+            </div>
+
+            <div class="step-card">
+
+                <div class="step-number">03</div>
+
+                <div class="step-icon">
+
+                    <i class="fa-solid fa-lock-open"></i>
+
+                </div>
+
+                <h3>Reset Password</h3>
+
+                <p>
+
+                    Verify OTP then securely update the user's password.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- API FLOW -->
+<!-- ===================================== -->
+
+<section class="api-flow">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>API Flow</span>
+
+            <h2>Password Recovery Process</h2>
+
+            <p>
+
+                Every request follows a secure verification pipeline.
+
+            </p>
+
+        </div>
+
+        <div class="flow-wrapper">
+
+            <div class="flow-card">
+
+                <i class="fa-solid fa-laptop-code"></i>
+
+                <h4>Client App</h4>
+
+            </div>
+
+            <div class="flow-arrow">
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </div>
+
+            <div class="flow-card">
+
+                <i class="fa-solid fa-cloud"></i>
+
+                <h4>PRAS API</h4>
+
+            </div>
+
+            <div class="flow-arrow">
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </div>
+
+            <div class="flow-card">
+
+                <i class="fa-solid fa-envelope-circle-check"></i>
+
+                <h4>Email OTP</h4>
+
+            </div>
+
+            <div class="flow-arrow">
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </div>
+
+            <div class="flow-card">
+
+                <i class="fa-solid fa-user-check"></i>
+
+                <h4>Verify OTP</h4>
+
+            </div>
+
+            <div class="flow-arrow">
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </div>
+
+            <div class="flow-card success">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <h4>Password Reset</h4>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+</section>
+
+<!-- ===================================== -->
+<!-- DEVELOPER SECTION -->
+<!-- ===================================== -->
+
+<section class="developer-section">
+
+    <div class="container developer-grid">
+
+        <div class="developer-content">
+
+            <span class="section-badge">
+                Developer Friendly
+            </span>
+
+            <h2>
+                Integrate PRAS API in Less Than 5 Minutes
+            </h2>
+
+            <p>
+
+                PRAS provides a simple REST API that allows your application
+                to initiate password recovery securely using just a few lines
+                of code.
+
+            </p>
+
+            <ul class="developer-list">
+
+                <li>
+                    <i class="fa-solid fa-check-circle"></i>
+                    RESTful JSON API
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-check-circle"></i>
+                    JWT Authentication
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-check-circle"></i>
+                    Email OTP Verification
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-check-circle"></i>
+                    Secure Password Reset
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="code-card">
+
+            <div class="code-header">
+
+                <div class="dots">
+
+                    <span class="red"></span>
+                    <span class="yellow"></span>
+                    <span class="green"></span>
+
+                </div>
+
+                <button
+                    class="copy-btn"
+                    (click)="copyCode()">
+
+                    <i class="fa-regular fa-copy"></i>
+
+                    Copy
+
+                </button>
+
+            </div>
+
+<pre><code>{{ apiExample }}</code></pre>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="cta-section">
+
+<div class="container">
+
+<h2>
+
+Ready to Secure Your Password Recovery?
+
+</h2>
+
+<p>
+
+Start integrating PRAS into your application today.
+
+</p>
+
+<div class="cta-buttons">
+
+<a routerLink="/login" class="primary-btn">
+
+Get Started
+
+</a>
+
+<a href="#api" class="secondary-btn">
+
+Read Documentation
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+    <div class="container footer-grid">
+
+        <!-- Company -->
+
+        <div class="footer-brand">
+
+            <img src="/img/logo.png" alt="PRAS Logo">
+
+            <p>
+
+                PRAS (Password Recovery API Service) is a secure,
+                enterprise-grade API platform that enables businesses
+                to integrate password recovery workflows quickly,
+                safely and reliably.
+
+            </p>
+
+        </div>
+
+        <!-- Platform -->
+
+        <div class="footer-column">
+
+            <h4>Platform</h4>
+
+            <a href="#">Dashboard</a>
+
+            <a href="#">API Documentation</a>
+
+            <a href="#">Recovery API</a>
+
+            <a href="#">Status</a>
+
+        </div>
+
+        <!-- Resources -->
+
+        <div class="footer-column">
+
+            <h4>Resources</h4>
+
+            <a href="#">Developer Guide</a>
+
+            <a href="#">Integration</a>
+
+            <a href="#">Support Center</a>
+
+            <a href="#">FAQs</a>
+
+        </div>
+
+        <!-- Contact -->
+
+        <div class="footer-column">
+
+            <h4>Contact</h4>
+
+            <a href="mailto:support@pras.co.tz">
+
+                <i class="fa-solid fa-envelope"></i>
+
+                support@pras.co.tz
+
+            </a>
+
+            <a href="tel:+255700000000">
+
+                <i class="fa-solid fa-phone"></i>
+
+                +255 700 000 000
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Zanzibar, Tanzania
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Bottom -->
+
+    <div class="footer-bottom">
+
+        <p>
+
+            © 2026 PRAS. All Rights Reserved.
+
+        </p>
+
+        <div class="socials">
+
+            <a href="#">
+
+                <i class="fab fa-github"></i>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fab fa-linkedin-in"></i>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fab fa-x-twitter"></i>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fab fa-facebook-f"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<button
+    class="back-top"
+    (click)="scrollTop()"
+    [class.show]="scrolled">
+
+    <i class="fa-solid fa-arrow-up"></i>
+
+</button>

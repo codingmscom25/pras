@@ -1,0 +1,271 @@
+/* ===================================
+   PAGE HEADER
+=================================== */
+
+.page-header{
+
+    margin-bottom:35px;
+
+}
+
+.page-header h1{
+
+    font-size:34px;
+
+    margin-bottom:10px;
+
+    color:#2B2B2B;
+
+    letter-spacing:.5px;
+
+}
+
+.page-header p{
+
+    color:#6E6B65;
+
+    line-height:1.8;
+
+}
+
+/* ===================================
+   CARD
+=================================== */
+
+.card{
+
+    background:rgba(255,255,255,.90);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(198,161,91,.20);
+
+    border-radius:22px;
+
+    padding:32px;
+
+    margin-bottom:28px;
+
+    box-shadow:
+        0 20px 45px rgba(43,43,43,.08),
+        0 8px 20px rgba(198,161,91,.08);
+
+}
+
+.card h2{
+
+    margin-bottom:28px;
+
+    font-size:22px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#2B2B2B;
+
+    font-weight:700;
+
+}
+
+.card h2 i{
+
+    color:#C6A15B;
+
+}
+
+/* ===================================
+   GRID
+=================================== */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:22px;
+
+}
+
+/* ===================================
+   FORM
+=================================== */
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.form-group label{
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+    color:#4A4742;
+
+}
+
+.form-group input{
+
+    height:50px;
+
+    padding:0 16px;
+
+    border:1px solid #DDD7CF;
+
+    border-radius:14px;
+
+    background:#FAF8F4;
+
+    color:#2B2B2B;
+
+    outline:none;
+
+    transition:.35s;
+
+}
+
+.form-group input::placeholder{
+
+    color:#A39D95;
+
+}
+
+.form-group input:hover{
+
+    border-color:#C6A15B;
+
+}
+
+.form-group input:focus{
+
+    background:#FFFFFF;
+
+    border-color:#C6A15B;
+
+    box-shadow:0 0 0 5px rgba(198,161,91,.18);
+
+}
+
+/* ===================================
+   TOGGLE CARD
+=================================== */
+
+.toggle{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px;
+
+    border:1px solid #DDD7CF;
+
+    border-radius:16px;
+
+    background:#FAF8F4;
+
+    transition:.35s;
+
+}
+
+.toggle:hover{
+
+    border-color:#C6A15B;
+
+    background:#FFFFFF;
+
+    box-shadow:0 8px 20px rgba(198,161,91,.12);
+
+}
+
+/* ===================================
+   ACTIONS
+=================================== */
+
+.actions{
+
+    margin-top:35px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+}
+
+.actions button{
+
+    height:54px;
+
+    padding:0 30px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+        135deg,
+        #4E4C44,
+        #2B2B2B
+    );
+
+    color:#FFFFFF;
+
+    font-weight:600;
+
+    font-size:15px;
+
+    letter-spacing:.4px;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    box-shadow:0 15px 35px rgba(43,43,43,.18);
+
+}
+
+.actions button:hover{
+
+    transform:translateY(-3px);
+
+    background:linear-gradient(
+        135deg,
+        #C6A15B,
+        #D4AF37
+    );
+
+    color:#2B2B2B;
+
+    box-shadow:0 20px 40px rgba(198,161,91,.30);
+
+}
+
+.actions button:active{
+
+    transform:scale(.98);
+
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media(max-width:900px){
+
+    .grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

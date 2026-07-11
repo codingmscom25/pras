@@ -1,0 +1,56 @@
+<div class="otp-page">
+
+    <a routerLink="/forgot-password" class="back-link">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back
+
+    </a>
+
+    <div class="otp-card">
+
+        <img src="/img/logo.png" class="logo">
+
+        <h2>Verify OTP</h2>
+
+        <p>
+
+            Enter the 6-digit verification code sent to your email.
+
+        </p>
+
+        <div class="otp-box">
+
+            <input maxlength="1" [(ngModel)]="otp[0]">
+            <input maxlength="1" [(ngModel)]="otp[1]">
+            <input maxlength="1" [(ngModel)]="otp[2]">
+            <input maxlength="1" [(ngModel)]="otp[3]">
+            <input maxlength="1" [(ngModel)]="otp[4]">
+            <input maxlength="1" [(ngModel)]="otp[5]">
+
+        </div>
+
+        <button
+            class="verify-btn"
+            (click)="verifyOTP()">
+
+            Verify OTP
+
+        </button>
+
+        <div class="resend">
+
+            Didn't receive code?
+
+            <a href="#">
+
+                Resend OTP
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,286 @@
+<section class="page-header">
+
+    <div>
+
+        <h1>System Settings</h1>
+
+        <p>
+
+            Configure PRAS platform preferences.
+
+        </p>
+
+    </div>
+
+</section>
+
+<form (ngSubmit)="saveSettings()">
+
+    <!-- GENERAL -->
+
+    <div class="card">
+
+        <h2>
+
+            <i class="fa-solid fa-sliders"></i>
+
+            General
+
+        </h2>
+
+        <div class="grid">
+
+            <div class="form-group">
+
+                <label>System Name</label>
+
+                <input
+                    [(ngModel)]="settings.systemName"
+                    name="systemName">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Company Name</label>
+
+                <input
+                    [(ngModel)]="settings.companyName"
+                    name="companyName">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Support Email</label>
+
+                <input
+                    [(ngModel)]="settings.supportEmail"
+                    name="supportEmail">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Base URL</label>
+
+                <input
+                    [(ngModel)]="settings.baseUrl"
+                    name="baseUrl">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SECURITY -->
+
+    <div class="card">
+
+        <h2>
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            Security
+
+        </h2>
+
+        <div class="grid">
+
+            <div class="form-group">
+
+                <label>OTP Expiry (Minutes)</label>
+
+                <input
+                    type="number"
+                    [(ngModel)]="settings.otpExpiry"
+                    name="otpExpiry">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Maximum OTP Attempts</label>
+
+                <input
+                    type="number"
+                    [(ngModel)]="settings.otpAttempts"
+                    name="otpAttempts">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Password Reset Expiry</label>
+
+                <input
+                    type="number"
+                    [(ngModel)]="settings.resetExpiry"
+                    name="resetExpiry">
+
+            </div>
+
+            <div class="form-group switch">
+
+                <label>
+
+                    Enable Rate Limiting
+
+                </label>
+
+                <input
+                    type="checkbox">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- EMAIL -->
+
+    <div class="card">
+
+        <h2>
+
+            <i class="fa-solid fa-envelope"></i>
+
+            Email Configuration
+
+        </h2>
+
+        <div class="grid">
+
+            <div class="form-group">
+
+                <label>SMTP Host</label>
+
+                <input
+                    [(ngModel)]="settings.smtpHost"
+                    name="smtpHost">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>SMTP Port</label>
+
+                <input
+                    type="number"
+                    [(ngModel)]="settings.smtpPort"
+                    name="smtpPort">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>SMTP Username</label>
+
+                <input
+                    [(ngModel)]="settings.smtpUsername"
+                    name="smtpUsername">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Sender Email</label>
+
+                <input
+                    [(ngModel)]="settings.senderEmail"
+                    name="senderEmail">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- API -->
+
+    <div class="card">
+
+        <h2>
+
+            <i class="fa-solid fa-code"></i>
+
+            API Configuration
+
+        </h2>
+
+        <div class="grid">
+
+            <div class="form-group">
+
+                <label>Rate Limit / Minute</label>
+
+                <input
+                    type="number"
+                    [(ngModel)]="settings.apiRateLimit"
+                    name="apiRateLimit">
+
+            </div>
+
+            <div class="toggle">
+
+                <label>
+
+                    Enable API Logging
+
+                </label>
+
+                <input
+                    type="checkbox"
+                    [(ngModel)]="settings.enableLogging"
+                    name="enableLogging">
+
+            </div>
+
+            <div class="toggle">
+
+                <label>
+
+                    Enable Swagger
+
+                </label>
+
+                <input
+                    type="checkbox"
+                    [(ngModel)]="settings.enableSwagger"
+                    name="enableSwagger">
+
+            </div>
+
+            <div class="toggle">
+
+                <label>
+
+                    Maintenance Mode
+
+                </label>
+
+                <input
+                    type="checkbox"
+                    [(ngModel)]="settings.maintenanceMode"
+                    name="maintenanceMode">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="actions">
+
+        <button>
+
+            <i class="fa-solid fa-floppy-disk"></i>
+
+            Save Settings
+
+        </button>
+
+    </div>
+
+</form>

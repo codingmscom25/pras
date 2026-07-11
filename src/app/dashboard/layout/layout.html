@@ -1,0 +1,173 @@
+<div class="layout">
+
+    <!-- Sidebar -->
+
+    <div class="sidebar-overlay" *ngIf="sidebarOpen" (click)="closeSidebar()" >
+
+    </div>
+    <aside class="sidebar" [class.close]="!sidebarOpen">
+
+        <div class="logo-area">
+
+            <img src="/img/logo-1.png" alt="PRAS">
+
+            <span *ngIf="sidebarOpen">
+
+                PRAS
+
+            </span>
+
+            <!-- Mobile Close -->
+
+            <button class="close-sidebar" (click)="closeSidebar()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <nav>
+
+            <a routerLink="/admin/overview" routerLinkActive="active">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span *ngIf="sidebarOpen">
+
+                    Dashboard
+
+                </span>
+
+            </a>
+
+            <a routerLink="/admin/clients" routerLinkActive="active">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span *ngIf="sidebarOpen">
+
+                    Clients
+
+                </span>
+
+            </a>
+
+            <a routerLink="/admin/requests" routerLinkActive="active">
+
+                <i class="fa-solid fa-key"></i>
+
+                <span *ngIf="sidebarOpen">
+
+                    Recovery Requests
+
+                </span>
+
+            </a>
+
+            <a routerLink="/admin/api-logs" routerLinkActive="active">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                <span *ngIf="sidebarOpen">
+
+                    API Logs
+
+                </span>
+
+            </a>
+
+            <a routerLink="/admin/api-docs" routerLinkActive="active">
+
+                <i class="fa-solid fa-book"></i>
+
+                <span *ngIf="sidebarOpen">
+
+                    API Docs
+
+                </span>
+
+            </a>
+
+
+            <a routerLink="/admin/settings" routerLinkActive="active">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span *ngIf="sidebarOpen">
+
+                    Settings
+
+                </span>
+
+            </a>
+
+        </nav>
+
+        <div class="logout">
+
+            <a>
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span *ngIf="sidebarOpen">
+
+                    Logout
+
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+    <!-- Content -->
+
+    <div class="main">
+
+        <!-- Topbar -->
+
+        <header class="topbar">
+
+            <button class="toggle" (click)="toggleSidebar()">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+            <div class="top-actions">
+
+                <button>
+
+                    <i class="fa-regular fa-bell"></i>
+
+                </button>
+
+                <div class="profile">
+
+                    <img src="/img/avatar.jfif">
+
+                    <div>
+
+                        <strong>Administrator</strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- Content -->
+
+        <main>
+
+            <router-outlet></router-outlet>
+
+        </main>
+
+    </div>
+
+</div>

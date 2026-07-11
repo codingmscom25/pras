@@ -1,0 +1,435 @@
+<section class="page-header">
+
+    <div>
+
+        <h1>Recovery Requests</h1>
+
+        <p>Monitor all password recovery activities.</p>
+
+    </div>
+
+    <button class="export-btn">
+
+        <i class="fa-solid fa-file-export"></i>
+
+        Export
+
+    </button>
+
+</section>
+
+<!-- Statistics -->
+
+<section class="stats-grid">
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-key"></i>
+
+        <h2>2,451</h2>
+
+        <p>Total Requests</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        <h2>2,280</h2>
+
+        <p>Successful</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-clock"></i>
+
+        <h2>48</h2>
+
+        <p>Pending</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-circle-xmark"></i>
+
+        <h2>123</h2>
+
+        <p>Failed</p>
+
+    </div>
+
+</section>
+
+<!-- Filters -->
+
+<section class="filters">
+
+    <input
+        type="text"
+        [(ngModel)]="search"
+        placeholder="Search request...">
+
+    <select [(ngModel)]="status">
+
+        <option>All</option>
+        <option>Success</option>
+        <option>Pending</option>
+        <option>Failed</option>
+        <option>Expired</option>
+
+    </select>
+
+    <select [(ngModel)]="client">
+
+        <option>All</option>
+        <option>ZECO Help Desk</option>
+        <option>IRIFAMS</option>
+        <option>Coastal Monitor</option>
+
+    </select>
+
+</section>
+
+<!-- Table -->
+
+<div class="table-card">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Client</th>
+
+<th>Email</th>
+
+<th>OTP</th>
+
+<th>IP Address</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr *ngFor="let request of requests">
+
+<td>{{request.id}}</td>
+
+<td>{{request.client}}</td>
+
+<td>{{request.email}}</td>
+
+<td>
+
+<code>{{request.otp}}</code>
+
+</td>
+
+<td>{{request.ip}}</td>
+
+<td>
+
+<span
+class="badge"
+[ngClass]="request.status.toLowerCase()">
+
+{{request.status}}
+
+</span>
+
+</td>
+
+<td>{{request.date}}</td>
+
+<td>
+
+<button
+    class="view-btn"
+    (click)="viewDetails(request)">
+
+    <i class="fa-solid fa-eye"></i>
+
+    View
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- ===================================== -->
+<!-- RECOVERY DETAILS DRAWER -->
+<!-- ===================================== -->
+
+<div
+    class="drawer-overlay"
+    *ngIf="showDetails"
+    (click)="closeDetails()">
+
+    <aside
+        class="details-drawer"
+        (click)="$event.stopPropagation()">
+
+        <!-- Header -->
+
+        <div class="drawer-header">
+
+            <div>
+
+                <h2>
+
+                    Recovery Details
+
+                </h2>
+
+                <small>
+
+                    {{selectedRequest?.id}}
+
+                </small>
+
+            </div>
+
+            <button
+                (click)="closeDetails()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <!-- Client -->
+
+        <div class="detail-card">
+
+            <h4>
+
+                Client
+
+            </h4>
+
+            <p>
+
+                {{selectedRequest?.client}}
+
+            </p>
+
+        </div>
+
+        <!-- Email -->
+
+        <div class="detail-card">
+
+            <h4>
+
+                Email
+
+            </h4>
+
+            <p>
+
+                {{selectedRequest?.email}}
+
+            </p>
+
+        </div>
+
+        <!-- OTP -->
+
+        <div class="detail-card">
+
+            <h4>
+
+                OTP Code
+
+            </h4>
+
+            <code>
+
+                {{selectedRequest?.otp}}
+
+            </code>
+
+        </div>
+
+        <!-- Status -->
+
+        <div class="detail-card">
+
+            <h4>
+
+                Status
+
+            </h4>
+
+            <span
+                class="badge"
+                [ngClass]="selectedRequest?.status.toLowerCase()">
+
+                {{selectedRequest?.status}}
+
+            </span>
+
+        </div>
+
+        <!-- IP -->
+
+        <div class="detail-card">
+
+            <h4>
+
+                IP Address
+
+            </h4>
+
+            <p>
+
+                {{selectedRequest?.ip}}
+
+            </p>
+
+        </div>
+
+        <!-- Date -->
+
+        <div class="detail-card">
+
+            <h4>
+
+                Request Time
+
+            </h4>
+
+            <p>
+
+                {{selectedRequest?.date}}
+
+            </p>
+
+        </div>
+
+        <!-- Timeline -->
+
+        <div class="timeline">
+
+            <h3>
+
+                Recovery Timeline
+
+            </h3>
+
+            <div class="timeline-item">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <div>
+
+                    <strong>
+
+                        Request Created
+
+                    </strong>
+
+                    <small>
+
+                        Recovery request received.
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="timeline-item">
+
+                <i class="fa-solid fa-envelope"></i>
+
+                <div>
+
+                    <strong>
+
+                        Email Sent
+
+                    </strong>
+
+                    <small>
+
+                        OTP email delivered.
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="timeline-item">
+
+                <i class="fa-solid fa-key"></i>
+
+                <div>
+
+                    <strong>
+
+                        OTP Verification
+
+                    </strong>
+
+                    <small>
+
+                        Waiting for verification.
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Actions -->
+
+        <div class="drawer-actions">
+
+            <button class="secondary">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Resend OTP
+
+            </button>
+
+            <button class="primary">
+
+                <i class="fa-solid fa-check"></i>
+
+                Verify
+
+            </button>
+
+        </div>
+
+    </aside>
+
+</div>

@@ -1,0 +1,187 @@
+<section class="dashboard-header">
+
+    <div>
+
+        <h1>
+
+            Dashboard
+
+        </h1>
+
+        <p>
+
+            Welcome back! Here's what's happening on PRAS today.
+
+        </p>
+
+    </div>
+
+    <button>
+
+        <i class="fa-solid fa-plus"></i>
+
+        Add Client
+
+    </button>
+
+</section>
+
+<!-- Statistics -->
+
+<section class="stats-grid">
+
+    <div
+        class="stat-card"
+        *ngFor="let card of cards">
+
+        <div class="top">
+
+            <div
+                class="icon"
+                [ngClass]="card.color">
+
+                <i
+                    class="fa-solid"
+                    [ngClass]="card.icon">
+
+                </i>
+
+            </div>
+
+            <span>
+
+                {{card.change}}
+
+            </span>
+
+        </div>
+
+        <h2>
+
+            {{card.value}}
+
+        </h2>
+
+        <p>
+
+            {{card.title}}
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- Quick Actions -->
+
+<section class="quick-actions">
+
+    <h2>
+
+        Quick Actions
+
+    </h2>
+
+    <div class="actions-grid">
+
+        <button>
+
+            <i class="fa-solid fa-user-plus"></i>
+
+            Add Client
+
+        </button>
+
+        <button>
+
+            <i class="fa-solid fa-key"></i>
+
+            Generate API Key
+
+        </button>
+
+        <button>
+
+            <i class="fa-solid fa-book"></i>
+
+            API Docs
+
+        </button>
+
+        <button>
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            Reports
+
+        </button>
+
+    </div>
+
+    <section class="charts">
+
+    <div class="chart-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h3>
+
+                    Recovery Requests
+
+                </h3>
+
+                <small>
+
+                    Last 7 Days
+
+                </small>
+
+            </div>
+
+            <button>
+
+                View Report
+
+            </button>
+
+        </div>
+
+        <canvas id="recoveryChart">
+
+        </canvas>
+
+    </div>
+
+    <div class="chart-card small">
+
+        <div class="card-header">
+
+            <div>
+
+                <h3>
+
+                    Success Rate
+
+                </h3>
+
+                <small>
+
+                    Overall
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <canvas id="successChart">
+
+        </canvas>
+
+    </div>
+
+</section>
+
+</section>
