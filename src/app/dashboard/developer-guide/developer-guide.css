@@ -1,0 +1,816 @@
+.page-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+margin-bottom:30px;
+
+}
+
+.page-header h1{
+
+font-size:34px;
+color:#0F172A;
+margin-bottom:8px;
+
+}
+
+.page-header p{
+
+color:#64748B;
+
+}
+
+.header-actions{
+
+display:flex;
+gap:15px;
+
+}
+
+.primary,
+.secondary{
+
+height:46px;
+padding:0 20px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-weight:600;
+transition:.3s;
+
+}
+
+.primary{
+
+background:#2563EB;
+color:white;
+
+}
+
+.primary:hover{
+
+background:#1D4ED8;
+
+}
+
+.secondary{
+
+background:#EFF6FF;
+color:#2563EB;
+
+}
+
+.secondary:hover{
+
+background:#DBEAFE;
+
+}
+
+/* Cards */
+
+.card,
+.client-card{
+
+background:white;
+border:1px solid #E2E8F0;
+border-radius:20px;
+padding:28px;
+margin-bottom:25px;
+box-shadow:0 12px 30px rgba(15,23,42,.05);
+
+}
+
+.client-top{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+
+}
+
+.status{
+
+padding:8px 16px;
+border-radius:20px;
+font-size:13px;
+font-weight:600;
+
+}
+
+.active{
+
+background:#DCFCE7;
+color:#166534;
+
+}
+
+.info-grid{
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+
+}
+
+.info-item label{
+
+display:block;
+margin-bottom:8px;
+color:#64748B;
+font-size:14px;
+
+}
+
+.info-item p{
+
+font-weight:600;
+color:#0F172A;
+
+}
+
+/* Card title */
+
+.card-title{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+
+}
+
+.card-title div{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+}
+
+.card-title i{
+
+color:#2563EB;
+
+}
+
+.copy-btn{
+
+border:none;
+background:#EFF6FF;
+color:#2563EB;
+padding:10px 16px;
+border-radius:10px;
+cursor:pointer;
+font-weight:600;
+
+}
+
+.code-box{
+
+background:#0F172A;
+color:#38BDF8;
+padding:20px;
+border-radius:14px;
+font-family:Consolas, monospace;
+overflow:auto;
+
+}
+
+/* Flow */
+
+.flow{
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+flex-wrap:wrap;
+
+}
+
+.flow-step{
+
+flex:1;
+min-width:140px;
+padding:20px;
+text-align:center;
+border:1px solid #E2E8F0;
+border-radius:16px;
+background:#F8FAFC;
+
+}
+
+.flow-step i{
+
+font-size:28px;
+color:#2563EB;
+margin-bottom:12px;
+
+}
+
+.flow-step.success{
+
+background:#DCFCE7;
+
+}
+
+.arrow{
+
+color:#94A3B8;
+font-size:20px;
+
+}
+
+@media(max-width:992px){
+
+.page-header{
+
+flex-direction:column;
+align-items:flex-start;
+
+}
+
+.info-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.flow{
+
+flex-direction:column;
+
+}
+
+.arrow{
+
+transform:rotate(90deg);
+
+}
+
+.header-actions{
+
+width:100%;
+
+}
+
+.header-actions button{
+
+flex:1;
+
+}
+
+}
+
+/* ======================================
+ENDPOINTS
+====================================== */
+
+.endpoint{
+
+    margin-top:35px;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    transition:.3s;
+
+}
+
+.endpoint:hover{
+
+    box-shadow:0 10px 25px rgba(15,23,42,.05);
+
+}
+
+.endpoint-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+}
+
+.endpoint-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.endpoint-left h4{
+
+    margin-bottom:6px;
+
+    color:#0F172A;
+
+}
+
+.endpoint-left small{
+
+    color:#64748B;
+
+}
+
+.endpoint-description{
+
+    color:#64748B;
+
+    line-height:1.8;
+
+    margin-bottom:25px;
+
+}
+
+/* METHOD */
+
+.method{
+
+    width:70px;
+
+    height:34px;
+
+    border-radius:30px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+.post{
+
+    background:#DBEAFE;
+
+    color:#1D4ED8;
+
+}
+
+.put{
+
+    background:#FEF3C7;
+
+    color:#92400E;
+
+}
+
+/* LANGUAGE */
+
+.code-tabs{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:18px;
+
+}
+
+.code-tabs button{
+
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:10px;
+
+    background:#EFF6FF;
+
+    color:#2563EB;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.code-tabs button:hover{
+
+    background:#DBEAFE;
+
+}
+
+.code-tabs button.active{
+
+    background:#2563EB;
+
+    color:white;
+
+}
+
+/* JSON */
+
+.json-card{
+
+    position:relative;
+
+    margin-bottom:25px;
+
+    background:#0F172A;
+
+    border-radius:16px;
+
+    padding:22px;
+
+    overflow:auto;
+
+}
+
+.json-card.request{
+
+    border-left:4px solid #3B82F6;
+
+}
+
+.json-card.success{
+
+    border-left:4px solid #10B981;
+
+}
+
+.json-card pre{
+
+    color:#38BDF8;
+
+    font-family:Consolas, monospace;
+
+    font-size:14px;
+
+    line-height:1.8;
+
+    white-space:pre-wrap;
+
+}
+
+.copy-btn{
+
+    position:absolute;
+
+    right:18px;
+
+    top:18px;
+
+    width:40px;
+
+    height:40px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2563EB;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.copy-btn:hover{
+
+    background:#1D4ED8;
+
+}
+
+.section-title{
+
+    margin:22px 0 12px;
+
+    color:#0F172A;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.endpoint-left{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+}
+
+.code-tabs{
+
+    flex-direction:column;
+
+}
+
+.code-tabs button{
+
+    width:100%;
+
+}
+
+}
+
+/* ======================================
+INTEGRATION STEPS
+====================================== */
+
+.steps{
+
+display:flex;
+
+flex-direction:column;
+
+gap:25px;
+
+}
+
+.step{
+
+display:flex;
+
+gap:20px;
+
+align-items:flex-start;
+
+}
+
+.step-number{
+
+width:45px;
+
+height:45px;
+
+border-radius:50%;
+
+background:#2563EB;
+
+color:white;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-weight:700;
+
+font-size:18px;
+
+flex-shrink:0;
+
+}
+
+.step h4{
+
+margin-bottom:6px;
+
+color:#0F172A;
+
+}
+
+.step p{
+
+color:#64748B;
+
+line-height:1.7;
+
+}
+
+/* ======================================
+DOWNLOADS
+====================================== */
+
+.downloads{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:20px;
+
+}
+
+.download-card{
+
+background:#F8FAFC;
+
+border:1px solid #E2E8F0;
+
+border-radius:18px;
+
+padding:25px;
+
+text-align:center;
+
+transition:.3s;
+
+}
+
+.download-card:hover{
+
+transform:translateY(-5px);
+
+box-shadow:0 15px 30px rgba(15,23,42,.08);
+
+}
+
+.download-card i{
+
+font-size:38px;
+
+color:#2563EB;
+
+margin-bottom:15px;
+
+}
+
+.download-card h4{
+
+margin-bottom:18px;
+
+}
+
+.download-card button{
+
+height:42px;
+
+padding:0 18px;
+
+border:none;
+
+border-radius:10px;
+
+background:#2563EB;
+
+color:white;
+
+cursor:pointer;
+
+}
+
+/* ======================================
+FAQ
+====================================== */
+
+.faq{
+
+display:flex;
+
+flex-direction:column;
+
+gap:20px;
+
+}
+
+.faq-item{
+
+padding:20px;
+
+border:1px solid #E2E8F0;
+
+border-radius:16px;
+
+background:#F8FAFC;
+
+}
+
+.faq-item h4{
+
+margin-bottom:10px;
+
+color:#0F172A;
+
+}
+
+.faq-item p{
+
+color:#64748B;
+
+line-height:1.7;
+
+}
+
+/* ======================================
+SUPPORT
+====================================== */
+
+.support-card{
+
+margin-top:30px;
+
+background:linear-gradient(135deg,#2563EB,#38BDF8);
+
+border-radius:24px;
+
+padding:50px;
+
+text-align:center;
+
+color:white;
+
+}
+
+.support-card i{
+
+font-size:50px;
+
+margin-bottom:20px;
+
+}
+
+.support-card h2{
+
+margin-bottom:15px;
+
+font-size:30px;
+
+}
+
+.support-card p{
+
+max-width:700px;
+
+margin:auto;
+
+margin-bottom:30px;
+
+line-height:1.8;
+
+}
+
+.support-card button{
+
+height:50px;
+
+padding:0 24px;
+
+border:none;
+
+border-radius:12px;
+
+background:white;
+
+color:#2563EB;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+
+/* ======================================
+RESPONSIVE
+====================================== */
+
+@media(max-width:992px){
+
+.downloads{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.downloads{
+
+grid-template-columns:1fr;
+
+}
+
+.support-card{
+
+padding:35px 25px;
+
+}
+
+.support-card h2{
+
+font-size:24px;
+
+}
+
+}

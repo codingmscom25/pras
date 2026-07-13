@@ -661,3 +661,87 @@ RESPONSIVE
     }
 
 }
+
+.table-footer{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:20px 25px;
+
+border-top:1px solid #EEE6DA;
+
+background:#FCFBF8;
+
+}
+
+.pagination{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+.pagination button{
+
+width:38px;
+
+height:38px;
+
+border:none;
+
+border-radius:10px;
+
+cursor:pointer;
+
+background:#F5F1EA;
+
+color:#4E4C44;
+
+transition:.3s;
+
+}
+
+.pagination button:hover:not(:disabled){
+
+background:#C6A15B;
+
+color:#fff;
+
+}
+
+.pagination button:disabled{
+
+opacity:.45;
+
+cursor:not-allowed;
+
+}
+
+.client-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:7px 14px;
+
+    border-radius:30px;
+
+    background:#F5F1EA;
+
+    color:#4E4C44;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    border:1px solid #DDD7CF;
+
+}

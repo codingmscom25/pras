@@ -18,7 +18,7 @@
 
 </section>
 
-<!-- Statistics -->
+<!-- ================= Statistics ================= -->
 
 <section class="stats-grid">
 
@@ -26,7 +26,7 @@
 
         <i class="fa-solid fa-server"></i>
 
-        <h2>18,420</h2>
+        <h2>{{ statistics?.totalRequests || 0 }}</h2>
 
         <p>Total Requests</p>
 
@@ -36,7 +36,7 @@
 
         <i class="fa-solid fa-circle-check"></i>
 
-        <h2>17,950</h2>
+        <h2>{{ statistics?.successfulRequests || 0 }}</h2>
 
         <p>Successful</p>
 
@@ -46,7 +46,7 @@
 
         <i class="fa-solid fa-triangle-exclamation"></i>
 
-        <h2>470</h2>
+        <h2>{{ statistics?.failedRequests || 0 }}</h2>
 
         <p>Errors</p>
 
@@ -56,7 +56,7 @@
 
         <i class="fa-solid fa-stopwatch"></i>
 
-        <h2>168 ms</h2>
+        <h2>{{ statistics?.averageResponseTime || 0 }} ms</h2>
 
         <p>Avg Response</p>
 
@@ -64,35 +64,69 @@
 
 </section>
 
-<!-- Filters -->
+<!-- ================= Filters ================= -->
 
 <section class="filters">
 
     <input
+
         [(ngModel)]="search"
-        placeholder="Search endpoint, client...">
 
-    <select [(ngModel)]="method">
+        (ngModelChange)="applyFilters()"
 
-        <option>All</option>
-        <option>GET</option>
-        <option>POST</option>
-        <option>PUT</option>
-        <option>DELETE</option>
+        placeholder="Search endpoint or client...">
+
+    <select
+
+        [(ngModel)]="method"
+
+        (ngModelChange)="applyFilters()">
+
+        <option value="All">All Methods</option>
+
+        <option value="GET">GET</option>
+
+        <option value="POST">POST</option>
+
+        <option value="PUT">PUT</option>
+
+        <option value="DELETE">DELETE</option>
 
     </select>
 
-    <select [(ngModel)]="status">
+    <select
 
-        <option>All</option>
-        <option>200</option>
-        <option>401</option>
-        <option>404</option>
-        <option>500</option>
+        [(ngModel)]="status"
+
+        (ngModelChange)="applyFilters()">
+
+        <option value="All">All Status</option>
+
+        <option value="200">200</option>
+
+        <option value="401">401</option>
+
+        <option value="404">404</option>
+
+        <option value="500">500</option>
+
+    </select>
+
+    <select
+
+        [(ngModel)]="sortOrder"
+
+        (ngModelChange)="sortLogs()">
+
+        <option value="DESC">Newest First</option>
+
+        <option value="ASC">Oldest First</option>
 
     </select>
 
 </section>
+
+<!-- ================= Table ================= -->
 
 <div class="table-card">
 
@@ -124,7 +158,19 @@
 
 <tbody>
 
-<tr *ngFor="let log of logs">
+<tr *ngIf="loading">
+
+<td colspan="8" style="text-align:center;padding:40px;">
+
+Loading logs...
+
+</td>
+
+</tr>
+
+<tr
+
+*ngFor="let log of pagedLogs">
 
 <td>{{log.id}}</td>
 
@@ -137,7 +183,9 @@
 <td>
 
 <span
+
 class="method"
+
 [ngClass]="log.method.toLowerCase()">
 
 {{log.method}}
@@ -146,13 +194,23 @@ class="method"
 
 </td>
 
-<td>{{log.client}}</td>
+<td>
+
+    <span class="client-badge">
+
+        {{ log.client }}
+
+    </span>
+
+</td>
 
 <td>
 
 <span
+
 class="status"
-[ngClass]="log.status">
+
+[ngClass]="log.status.toString()">
 
 {{log.status}}
 
@@ -160,21 +218,45 @@ class="status"
 
 </td>
 
-<td>{{log.responseTime}}</td>
+<td>
 
-<td>{{log.date}}</td>
+{{log.responseTime}} ms
+
+</td>
+
+<td>
+
+{{log.createdAt | date:'medium'}}
+
+</td>
 
 <td>
 
 <button
-    class="view-btn"
-    (click)="viewLog(log)">
 
-    <i class="fa-solid fa-eye"></i>
+class="view-btn"
 
-    View
+(click)="viewLog(log)">
+
+<i class="fa-solid fa-eye"></i>
+
+View
 
 </button>
+
+</td>
+
+</tr>
+
+<tr
+
+*ngIf="!loading && filteredLogs.length===0">
+
+<td colspan="8"
+
+style="text-align:center;padding:40px;">
+
+No API logs found.
 
 </td>
 
@@ -184,136 +266,308 @@ class="status"
 
 </table>
 
+<!-- ================= Pagination ================= -->
+
+<div class="table-footer">
+
+<div>
+
+Showing
+
+{{ startRecord }}
+
+-
+
+{{ endRecord }}
+
+of
+
+{{ filteredLogs.length }}
+
 </div>
 
-<!-- ================================= -->
-<!-- LOG DETAILS DRAWER -->
-<!-- ================================= -->
+<div class="pagination">
+
+<button
+
+(click)="previousPage()"
+
+[disabled]="currentPage===1">
+
+<i class="fa-solid fa-chevron-left"></i>
+
+</button>
+
+<span>
+
+Page
+
+{{ currentPage }}
+
+of
+
+{{ totalPages }}
+
+</span>
+
+<button
+
+(click)="nextPage()"
+
+[disabled]="currentPage===totalPages">
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= Drawer ================= -->
 
 <div
-  class="drawer-overlay"
-  *ngIf="showDetails"
-  (click)="closeDrawer()">
 
-  <aside
-    class="log-drawer"
-    (click)="$event.stopPropagation()">
+class="drawer-overlay"
 
-    <div class="drawer-header">
-      <div>
-        <h2>API Log Details</h2>
-        <small>{{ selectedLog?.id }}</small>
-      </div>
+*ngIf="showDetails"
 
-      <button (click)="closeDrawer()">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
+(click)="closeDrawer()">
 
-    <!-- Endpoint -->
-    <div class="detail-group">
-      <label>Endpoint</label>
-      <code>{{ selectedLog?.endpoint }}</code>
-    </div>
+<aside
 
-    <!-- HTTP Method -->
-    <div class="detail-group">
-      <label>HTTP Method</label>
+class="log-drawer"
 
-      <span
-        class="method"
-        [ngClass]="selectedLog?.method?.toLowerCase()">
-        {{ selectedLog?.method }}
-      </span>
-    </div>
+(click)="$event.stopPropagation()">
 
-    <!-- Client -->
-    <div class="detail-group">
-      <label>Client</label>
-      <p>{{ selectedLog?.client }}</p>
-    </div>
+<div class="drawer-header">
 
-    <!-- Status -->
-    <div class="detail-group">
-      <label>Status</label>
+<div>
 
-      <span
-        class="status"
-        [ngClass]="selectedLog?.status">
-        {{ selectedLog?.status }}
-      </span>
-    </div>
+<h2>
 
-    <!-- Response Time -->
-    <div class="detail-group">
-      <label>Response Time</label>
-      <p>{{ selectedLog?.responseTime }}</p>
-    </div>
+API Log Details
 
-    <hr>
+</h2>
 
-    <!-- Request Body -->
-    <h3>Request Body</h3>
+<small>
 
-    <div class="json-box">
-      <pre>&#123;
-  "email": "user@gmail.com"
-&#125;</pre>
+{{ selectedLog?.id }}
 
-      <button>
-        <i class="fa-solid fa-copy"></i>
-        Copy
-      </button>
-    </div>
+</small>
 
-    <!-- Response -->
-    <h3>Response</h3>
+</div>
 
-    <div class="json-box">
-      <pre>&#123;
-  "success": true,
-  "message": "OTP Sent Successfully"
-&#125;</pre>
+<button
 
-      <button>
-        <i class="fa-solid fa-copy"></i>
-        Copy
-      </button>
-    </div>
+(click)="closeDrawer()">
 
-    <hr>
+<i class="fa-solid fa-xmark"></i>
 
-    <!-- Security -->
-    <h3>Security</h3>
+</button>
 
-    <div class="security-list">
+</div>
 
-      <div>
-        <i class="fa-solid fa-location-dot"></i>
-        IP Address
-        <span>196.41.90.22</span>
-      </div>
+<div class="detail-group">
 
-      <div>
-        <i class="fa-solid fa-desktop"></i>
-        Device
-        <span>Chrome / Windows</span>
-      </div>
+<label>
 
-      <div>
-        <i class="fa-solid fa-key"></i>
-        API Key
-        <span>pras_live_******</span>
-      </div>
+Endpoint
 
-      <div>
-        <i class="fa-solid fa-clock"></i>
-        Request Time
-        <span>{{ selectedLog?.date }}</span>
-      </div>
+</label>
 
-    </div>
+<code>
 
-  </aside>
+{{ selectedLog?.endpoint }}
+
+</code>
+
+</div>
+
+<div class="detail-group">
+
+<label>
+
+Method
+
+</label>
+
+<span
+
+class="method"
+
+[ngClass]="selectedLog?.method?.toLowerCase()">
+
+{{ selectedLog?.method }}
+
+</span>
+
+</div>
+
+<div class="detail-group">
+
+<label>
+
+Client
+
+</label>
+
+<p>
+
+{{ selectedLog?.client }}
+
+</p>
+
+</div>
+
+<div class="detail-group">
+
+<label>
+
+Status
+
+</label>
+
+<span
+
+class="status"
+
+[ngClass]="selectedLog?.status?.toString()">
+
+{{ selectedLog?.status }}
+
+</span>
+
+</div>
+
+<div class="detail-group">
+
+<label>
+
+Response Time
+
+</label>
+
+<p>
+
+{{ selectedLog?.responseTime }} ms
+
+</p>
+
+</div>
+
+<hr>
+
+<h3>
+
+Request Body
+
+</h3>
+
+<div class="json-box">
+
+<pre>{{ selectedLog?.requestBody }}</pre>
+
+<button>
+
+<i class="fa-solid fa-copy"></i>
+
+Copy
+
+</button>
+
+</div>
+
+<h3>
+
+Response Body
+
+</h3>
+
+<div class="json-box">
+
+<pre>{{ selectedLog?.responseBody }}</pre>
+
+<button>
+
+<i class="fa-solid fa-copy"></i>
+
+Copy
+
+</button>
+
+</div>
+
+<hr>
+
+<h3>
+
+Security
+
+</h3>
+
+<div class="security-list">
+
+<div>
+
+<i class="fa-solid fa-location-dot"></i>
+
+IP Address
+
+<span>
+
+{{ selectedLog?.ipAddress }}
+
+</span>
+
+</div>
+
+<div>
+
+<i class="fa-solid fa-desktop"></i>
+
+Device
+
+<span>
+
+{{ selectedLog?.device }}
+
+</span>
+
+</div>
+
+<div>
+
+<i class="fa-solid fa-key"></i>
+
+API Key
+
+<span>
+
+{{ selectedLog?.apiKey }}
+
+</span>
+
+</div>
+
+<div>
+
+<i class="fa-solid fa-clock"></i>
+
+Request Time
+
+<span>
+
+{{ selectedLog?.createdAt | date:'medium' }}
+
+</span>
+
+</div>
+
+</div>
+
+</aside>
 
 </div>

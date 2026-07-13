@@ -1,0 +1,789 @@
+<section class="page-header">
+
+    <div>
+
+        <h1>
+
+            Developer Guide
+
+        </h1>
+
+        <p>
+
+            Integration guide for
+
+            <strong>{{client.name}}</strong>
+
+        </p>
+
+    </div>
+
+    <div class="header-actions">
+
+        <button class="secondary">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            Swagger
+
+        </button>
+
+        <button class="primary">
+
+            <i class="fa-solid fa-download"></i>
+
+            Download SDK
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- CLIENT INFO -->
+
+<section class="client-card">
+
+    <div class="client-top">
+
+        <div>
+
+            <h2>
+
+                {{client.name}}
+
+            </h2>
+
+            <span
+                class="status active">
+
+                {{client.status}}
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="info-grid">
+
+        <div class="info-item">
+
+            <label>
+
+                Client ID
+
+            </label>
+
+            <p>
+
+                #{{client.id}}
+
+            </p>
+
+        </div>
+
+        <div class="info-item">
+
+            <label>
+
+                API Version
+
+            </label>
+
+            <p>
+
+                {{client.documentationVersion}}
+
+            </p>
+
+        </div>
+
+        <div class="info-item">
+
+            <label>
+
+                Created
+
+            </label>
+
+            <p>
+
+                {{client.createdAt}}
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- API KEY -->
+
+<section class="card">
+
+    <div class="card-title">
+
+        <div>
+
+            <i class="fa-solid fa-key"></i>
+
+            <h3>
+
+                API Authentication
+
+            </h3>
+
+        </div>
+
+        <button
+
+            class="copy-btn"
+
+            (click)="copyApiKey()">
+
+            <i class="fa-regular fa-copy"></i>
+
+            Copy
+
+        </button>
+
+    </div>
+
+    <div class="code-box">
+
+Authorization: Bearer {{client.apiKey}}
+
+    </div>
+
+</section>
+
+<!-- BASE URL -->
+
+<section class="card">
+
+    <div class="card-title">
+
+        <div>
+
+            <i class="fa-solid fa-link"></i>
+
+            <h3>
+
+                Base URL
+
+            </h3>
+
+        </div>
+
+    </div>
+
+    <div class="code-box">
+
+{{client.baseUrl}}
+
+    </div>
+
+</section>
+
+<!-- FLOW -->
+
+<section class="card">
+
+    <div class="card-title">
+
+        <div>
+
+            <i class="fa-solid fa-code-branch"></i>
+
+            <h3>
+
+                Password Recovery Flow
+
+            </h3>
+
+        </div>
+
+    </div>
+
+    <div class="flow">
+
+        <div class="flow-step">
+
+            <i class="fa-solid fa-laptop-code"></i>
+
+            <h4>Your Application</h4>
+
+        </div>
+
+        <div class="arrow">
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </div>
+
+        <div class="flow-step">
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+            <h4>POST /request</h4>
+
+        </div>
+
+        <div class="arrow">
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </div>
+
+        <div class="flow-step">
+
+            <i class="fa-solid fa-envelope"></i>
+
+            <h4>Email Sent</h4>
+
+        </div>
+
+        <div class="arrow">
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </div>
+
+        <div class="flow-step">
+
+            <i class="fa-solid fa-check-circle"></i>
+
+            <h4>Verify OTP</h4>
+
+        </div>
+
+        <div class="arrow">
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </div>
+
+        <div class="flow-step success">
+
+            <i class="fa-solid fa-lock-open"></i>
+
+            <h4>Password Reset</h4>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- ENDPOINTS -->
+<!-- ===================================================== -->
+
+<section class="card">
+
+    <div class="card-title">
+
+        <div>
+
+            <i class="fa-solid fa-code"></i>
+
+            <h3>
+
+                API Endpoints
+
+            </h3>
+
+        </div>
+
+    </div>
+
+    <div
+        class="endpoint"
+        *ngFor="let endpoint of endpointDocs">
+
+        <!-- Header -->
+
+        <div class="endpoint-header">
+
+            <div class="endpoint-left">
+
+                <span
+                    class="method"
+                    [ngClass]="endpoint.method.toLowerCase()">
+
+                    {{endpoint.method}}
+
+                </span>
+
+                <div>
+
+                    <h4>
+
+                        {{endpoint.title}}
+
+                    </h4>
+
+                    <small>
+
+                        {{endpoint.path}}
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Description -->
+
+        <p class="endpoint-description">
+
+            {{endpoint.description}}
+
+        </p>
+
+        <!-- ========================= -->
+        <!-- LANGUAGE TABS -->
+        <!-- ========================= -->
+
+        <div class="code-tabs">
+
+            <button
+                [class.active]="endpoint.activeTab==='curl'"
+                (click)="setLanguage(endpoint,'curl')">
+
+                cURL
+
+            </button>
+
+            <button
+                [class.active]="endpoint.activeTab==='spring'"
+                (click)="setLanguage(endpoint,'spring')">
+
+                Spring Boot
+
+            </button>
+
+            <button
+                [class.active]="endpoint.activeTab==='angular'"
+                (click)="setLanguage(endpoint,'angular')">
+
+                Angular
+
+            </button>
+
+            <button
+                [class.active]="endpoint.activeTab==='javascript'"
+                (click)="setLanguage(endpoint,'javascript')">
+
+                JavaScript
+
+            </button>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- CODE SAMPLE -->
+        <!-- ========================= -->
+
+        <div class="json-card">
+
+            <button
+                class="copy-btn"
+                (click)="copyCode(currentSample(endpoint))">
+
+                <i class="fa-regular fa-copy"></i>
+
+            </button>
+
+            <pre>{{currentSample(endpoint)}}</pre>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- REQUEST -->
+        <!-- ========================= -->
+
+        <h4 class="section-title">
+
+            Request Body
+
+        </h4>
+
+        <div class="json-card request">
+
+            <button
+                class="copy-btn"
+                (click)="copyCode(endpoint.request)">
+
+                <i class="fa-regular fa-copy"></i>
+
+            </button>
+
+            <pre>{{endpoint.request}}</pre>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- RESPONSE -->
+        <!-- ========================= -->
+
+        <h4 class="section-title">
+
+            Success Response
+
+        </h4>
+
+        <div class="json-card success">
+
+            <button
+                class="copy-btn"
+                (click)="copyCode(endpoint.response)">
+
+                <i class="fa-regular fa-copy"></i>
+
+            </button>
+
+            <pre>{{endpoint.response}}</pre>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- INTEGRATION STEPS -->
+<!-- ===================================================== -->
+
+<section class="card">
+
+    <div class="card-title">
+
+        <div>
+
+            <i class="fa-solid fa-list-check"></i>
+
+            <h3>
+
+                Integration Steps
+
+            </h3>
+
+        </div>
+
+    </div>
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="step-number">1</div>
+
+            <div>
+
+                <h4>Obtain API Key</h4>
+
+                <p>
+                    Copy your API Key from the Clients page or above.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="step">
+
+            <div class="step-number">2</div>
+
+            <div>
+
+                <h4>Add Authorization Header</h4>
+
+                <p>
+
+                    Include:
+
+                    <strong>
+
+Authorization: Bearer {{client.apiKey}}
+
+                    </strong>
+
+                    in every request.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="step">
+
+            <div class="step-number">3</div>
+
+            <div>
+
+                <h4>Request Password Recovery</h4>
+
+                <p>
+
+                    Call the recovery endpoint to send OTP.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="step">
+
+            <div class="step-number">4</div>
+
+            <div>
+
+                <h4>Verify OTP</h4>
+
+                <p>
+
+                    Validate the OTP entered by the user.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="step">
+
+            <div class="step-number">5</div>
+
+            <div>
+
+                <h4>Reset Password</h4>
+
+                <p>
+
+                    Submit the new password after verification.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- DOWNLOADS -->
+<!-- ===================================================== -->
+
+<section class="card">
+
+    <div class="card-title">
+
+        <div>
+
+            <i class="fa-solid fa-download"></i>
+
+            <h3>
+
+                Downloads
+
+            </h3>
+
+        </div>
+
+    </div>
+
+    <div class="downloads">
+
+        <div class="download-card">
+
+            <i class="fa-brands fa-java"></i>
+
+            <h4>
+
+                Spring Boot SDK
+
+            </h4>
+
+            <button>
+
+                Download
+
+            </button>
+
+        </div>
+
+        <div class="download-card">
+
+            <i class="fa-brands fa-angular"></i>
+
+            <h4>
+
+                Angular SDK
+
+            </h4>
+
+            <button>
+
+                Download
+
+            </button>
+
+        </div>
+
+        <div class="download-card">
+
+            <i class="fa-brands fa-js"></i>
+
+            <h4>
+
+                JavaScript SDK
+
+            </h4>
+
+            <button>
+
+                Download
+
+            </button>
+
+        </div>
+
+        <div class="download-card">
+
+            <i class="fa-solid fa-paperclip"></i>
+
+            <h4>
+
+                Postman Collection
+
+            </h4>
+
+            <button>
+
+                Download
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- FAQ -->
+<!-- ===================================================== -->
+
+<section class="card">
+
+    <div class="card-title">
+
+        <div>
+
+            <i class="fa-solid fa-circle-question"></i>
+
+            <h3>
+
+                Frequently Asked Questions
+
+            </h3>
+
+        </div>
+
+    </div>
+
+    <div class="faq">
+
+        <div class="faq-item">
+
+            <h4>
+
+                How long is OTP valid?
+
+            </h4>
+
+            <p>
+
+                OTP expires after the configured expiry period
+                (default 10 minutes).
+
+            </p>
+
+        </div>
+
+        <div class="faq-item">
+
+            <h4>
+
+                Can I regenerate my API Key?
+
+            </h4>
+
+            <p>
+
+                Yes. From the Clients page you can generate
+                a new API Key.
+
+            </p>
+
+        </div>
+
+        <div class="faq-item">
+
+            <h4>
+
+                Is HTTPS required?
+
+            </h4>
+
+            <p>
+
+                Yes. PRAS only accepts secure HTTPS requests.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- SUPPORT -->
+<!-- ===================================================== -->
+
+<section class="support-card">
+
+    <i class="fa-solid fa-headset"></i>
+
+    <h2>
+
+        Need Integration Help?
+
+    </h2>
+
+    <p>
+
+        Contact our support team if you need assistance
+        integrating PRAS into your application.
+
+    </p>
+
+    <button>
+
+        <i class="fa-solid fa-envelope"></i>
+
+        Contact Support
+
+    </button>
+
+</section>

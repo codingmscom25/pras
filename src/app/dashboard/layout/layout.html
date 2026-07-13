@@ -104,21 +104,22 @@
 
         </nav>
 
-        <div class="logout">
+        <div class="logout"
+            (click)="logout()">
 
-            <a>
+    <a>
 
-                <i class="fa-solid fa-right-from-bracket"></i>
+        <i class="fa-solid fa-right-from-bracket"></i>
 
-                <span *ngIf="sidebarOpen">
+        <span *ngIf="sidebarOpen">
 
-                    Logout
+            Logout
 
-                </span>
+        </span>
 
-            </a>
+    </a>
 
-        </div>
+</div>
 
     </aside>
 
@@ -138,25 +139,121 @@
 
             <div class="top-actions">
 
-                <button>
+    <div class="notification-wrapper">
 
-                    <i class="fa-regular fa-bell"></i>
+        <button
+            (click)="toggleNotifications()">
 
-                </button>
+            <i class="fa-regular fa-bell"></i>
 
-                <div class="profile">
+            <span class="badge">
 
-                    <img src="/img/avatar.jfif">
+                {{ notifications.length }}
 
-                    <div>
+            </span>
 
-                        <strong>Administrator</strong>
+        </button>
 
-                    </div>
+        <div
+            class="notification-menu"
+            *ngIf="showNotifications">
+
+            <h4>
+
+                Notifications
+
+            </h4>
+
+            <div
+                class="notification-item"
+                *ngFor="let n of notifications">
+
+                <i
+                    class="fa-solid"
+                    [ngClass]="n.icon">
+
+                </i>
+
+                <div>
+
+                    <strong>
+
+                        {{ n.title }}
+
+                    </strong>
+
+                    <small>
+
+                        {{ n.time }}
+
+                    </small>
 
                 </div>
 
             </div>
+
+        </div>
+
+    </div>
+
+    <div
+        class="profile"
+        (click)="toggleProfileMenu()">
+
+        <img src="/img/avatar.jfif">
+
+        <div>
+
+            <strong>
+
+                Administrator
+
+            </strong>
+
+            <small>
+
+                admin@pras.co.tz
+
+            </small>
+
+        </div>
+
+        <i class="fa-solid fa-chevron-down"></i>
+
+        <div
+            class="profile-menu"
+            *ngIf="showProfileMenu">
+
+            <a>
+
+                <i class="fa-solid fa-user"></i>
+
+                My Profile
+
+            </a>
+
+            <a>
+
+                <i class="fa-solid fa-lock"></i>
+
+                Change Password
+
+            </a>
+
+            <a
+                (click)="logout()">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
         </header>
 

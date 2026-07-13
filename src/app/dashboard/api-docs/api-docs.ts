@@ -32,18 +32,18 @@ export class ApiDocs {
 
     {
       method: 'POST',
-      url: '/api/password-recovery/request',
+      url: '/api/recovery/request',
       title: 'Request Password Recovery',
       description: 'Generate OTP and send a password recovery email.',
       activeTab: 'curl',
 
       code: {
 
-        curl: `curl --request POST https://api.pras.co.tz/api/password-recovery/request \
---header "Authorization: Bearer YOUR_API_KEY" \
+        curl: `curl --request POST http://localhost:8080/api/recovery/request \
+--header "Authorization: ApiKey YOUR_API_KEY" \
 --header "Content-Type: application/json" \
 --data '{
-  "email":"user@example.com"
+  "identifier":"user@example.com"
 }'`,
 
         spring: `HttpHeaders headers = new HttpHeaders();
@@ -59,13 +59,13 @@ RestTemplate restTemplate = new RestTemplate();
 
 ResponseEntity<String> response =
 restTemplate.postForEntity(
-"https://api.pras.co.tz/api/password-recovery/request",
+"http://localhost:8080/api/recovery/request",
 entity,
 String.class
 );`,
 
         angular: `this.http.post(
-environment.api + "/password-recovery/request",
+environment.api + "/recovery/request",
 {
   email:"user@example.com"
 },
@@ -78,7 +78,7 @@ environment.api + "/password-recovery/request",
 });`,
 
         javascript: `fetch(
-"https://api.pras.co.tz/api/password-recovery/request",
+"http://localhost:8080/api/recovery/request",
 {
   method:"POST",
   headers:{
@@ -98,18 +98,18 @@ environment.api + "/password-recovery/request",
 
     {
       method: 'POST',
-      url: '/api/password-recovery/verify-otp',
+      url: '/api/recovery/verify-otp',
       title: 'Verify OTP',
       description: "Verify OTP sent to the user's email.",
       activeTab: 'curl',
 
       code: {
 
-        curl: `curl --request POST https://api.pras.co.tz/api/password-recovery/verify-otp \
+        curl: `curl --request POST http://localhost:8080/api/recovery/verify-otp \
 --header "Authorization: Bearer YOUR_API_KEY" \
 --header "Content-Type: application/json" \
 --data '{
-  "email":"user@example.com",
+  "identifier":"user@example.com",
   "otp":"458963"
 }'`,
 
@@ -127,7 +127,7 @@ String.class
 );`,
 
         angular: `this.http.post(
-environment.api + "/password-recovery/verify-otp",
+environment.api + "/recovery/verify-otp",
 {
  email:"user@example.com",
  otp:"458963"
@@ -152,26 +152,24 @@ VERIFY_URL,
 
     {
       method: 'PUT',
-      url: '/api/password-recovery/reset',
+      url: '/api/recovery/reset',
       title: 'Reset Password',
       description: 'Verify OTP sent to the user\'s email.',
       activeTab: 'curl',
 
       code: {
 
-        curl: `curl --request PUT https://api.pras.co.tz/api/password-recovery/reset \
+        curl: `curl --request PUT http://localhost:8080/api/recovery/reset \
 --header "Authorization: Bearer YOUR_API_KEY" \
 --header "Content-Type: application/json" \
 --data '{
-  "email":"user@example.com",
-  "otp":"458963",
-  "password":"NewPassword123"
+  "identifier":"user@example.com",
+  "newPassword":"NewPassword123"
 }'`,
 
         spring: `Map<String,String> body = new HashMap<>();
 
 body.put("email","user@example.com");
-body.put("otp","458963");
 body.put("password","NewPassword123");
 
 restTemplate.exchange(
@@ -182,11 +180,10 @@ String.class
 );`,
 
         angular: `this.http.put(
-environment.api + "/password-recovery/reset",
+environment.api + "/recovery/reset",
 {
- email:"user@example.com",
- otp:"458963",
- password:"NewPassword123"
+  "identifier":"user@example.com",
+  "newPassword":"NewPassword123"
 },
 options
 ).subscribe();`,
@@ -198,7 +195,6 @@ RESET_URL,
  headers:headers,
  body:JSON.stringify({
    email:"user@example.com",
-   otp:"458963",
    password:"NewPassword123"
  })
 });`
@@ -215,12 +211,15 @@ RESET_URL,
 
   responseExample = `{
   "success": true,
-  "message":"OTP sent successfully."
+  "message": "OTP sent successfully.",
+  "timestamp": "2026-07-11T12:30:10"
 }`;
 
   errorExample = `{
-  "success": false,
-  "message":"Invalid API Key."
+  "status": 401,
+  "error": "Unauthorized",
+  "message": "Invalid API Key.",
+  "timestamp": "2026-07-11T12:30:10"
 }`;
 
   toggle(index: number) {

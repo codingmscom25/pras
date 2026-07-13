@@ -4,7 +4,11 @@
 
         <h1>Recovery Requests</h1>
 
-        <p>Monitor all password recovery activities.</p>
+        <p>
+
+            Monitor all password recovery activities.
+
+        </p>
 
     </div>
 
@@ -18,7 +22,9 @@
 
 </section>
 
+<!-- ===================== -->
 <!-- Statistics -->
+<!-- ===================== -->
 
 <section class="stats-grid">
 
@@ -26,7 +32,7 @@
 
         <i class="fa-solid fa-key"></i>
 
-        <h2>2,451</h2>
+        <h2>{{ statistics.total || 0 }}</h2>
 
         <p>Total Requests</p>
 
@@ -36,17 +42,17 @@
 
         <i class="fa-solid fa-circle-check"></i>
 
-        <h2>2,280</h2>
+        <h2>{{ statistics.completed || 0 }}</h2>
 
-        <p>Successful</p>
+        <p>Completed</p>
 
     </div>
 
     <div class="stat-card">
 
-        <i class="fa-solid fa-clock"></i>
+        <i class="fa-solid fa-spinner"></i>
 
-        <h2>48</h2>
+        <h2>{{ statistics.pending || 0 }}</h2>
 
         <p>Pending</p>
 
@@ -54,141 +60,270 @@
 
     <div class="stat-card">
 
-        <i class="fa-solid fa-circle-xmark"></i>
+        <i class="fa-solid fa-hourglass-end"></i>
 
-        <h2>123</h2>
+        <h2>{{ statistics.expired || 0 }}</h2>
 
-        <p>Failed</p>
+        <p>Expired</p>
 
     </div>
 
 </section>
 
+<!-- ===================== -->
 <!-- Filters -->
+<!-- ===================== -->
 
 <section class="filters">
 
     <input
-        type="text"
-        [(ngModel)]="search"
-        placeholder="Search request...">
+    type="text"
+    [(ngModel)]="search"
+    (ngModelChange)="applyFilters()"
+    placeholder="Search identifier...">
 
-    <select [(ngModel)]="status">
+    <select
+    [(ngModel)]="status"
+    (ngModelChange)="applyFilters()">
 
-        <option>All</option>
-        <option>Success</option>
-        <option>Pending</option>
-        <option>Failed</option>
-        <option>Expired</option>
+    <option value="All">All</option>
 
-    </select>
+    <option value="PENDING">Pending</option>
 
-    <select [(ngModel)]="client">
+    <option value="VERIFIED">Verified</option>
 
-        <option>All</option>
-        <option>ZECO Help Desk</option>
-        <option>IRIFAMS</option>
-        <option>Coastal Monitor</option>
+    <option value="COMPLETED">Completed</option>
 
-    </select>
+    <option value="EXPIRED">Expired</option>
+
+</select>
+
+    <select
+    [(ngModel)]="client"
+    (ngModelChange)="applyFilters()">
+
+    <option
+        *ngFor="let c of clients"
+        [value]="c">
+
+        {{ c }}
+
+    </option>
+
+</select>
+
+<select
+    [(ngModel)]="sortOrder"
+    (ngModelChange)="sortRequests()">
+
+    <option value="DESC">
+
+        Newest First
+
+    </option>
+
+    <option value="ASC">
+
+        Oldest First
+
+    </option>
+
+</select>
 
 </section>
 
+<!-- ===================== -->
 <!-- Table -->
+<!-- ===================== -->
 
 <div class="table-card">
 
-<table>
+    <div class="table-title">
 
-<thead>
+        <h3>
 
-<tr>
+            Recovery History
 
-<th>ID</th>
+            <small>
 
-<th>Client</th>
+                {{ requests.length }} Records
 
-<th>Email</th>
+            </small>
 
-<th>OTP</th>
+        </h3>
 
-<th>IP Address</th>
+    </div>
 
-<th>Status</th>
+    <table>
 
-<th>Date</th>
+        <thead>
 
-<th></th>
+        <tr>
 
-</tr>
+            <th>ID</th>
 
-</thead>
+            <th>Client</th>
 
-<tbody>
+            <th>Identifier</th>
 
-<tr *ngFor="let request of requests">
+            <th>Status</th>
 
-<td>{{request.id}}</td>
+            <th>Created At</th>
 
-<td>{{request.client}}</td>
+            <th></th>
 
-<td>{{request.email}}</td>
+        </tr>
 
-<td>
+        </thead>
 
-<code>{{request.otp}}</code>
+        <tbody>
 
-</td>
+        <tr *ngFor="let request of pagedRequests">
 
-<td>{{request.ip}}</td>
+            <td>
 
-<td>
+                {{ request.id }}
 
-<span
-class="badge"
-[ngClass]="request.status.toLowerCase()">
+            </td>
 
-{{request.status}}
+            <td>
 
-</span>
+                {{ request.client }}
 
-</td>
+            </td>
 
-<td>{{request.date}}</td>
+            <td>
 
-<td>
+                {{ request.identifier }}
 
-<button
-    class="view-btn"
-    (click)="viewDetails(request)">
+            </td>
 
-    <i class="fa-solid fa-eye"></i>
+            <td>
 
-    View
+                <span
 
-</button>
+                    class="badge"
 
-</td>
+                    [ngClass]="request.status.toLowerCase()">
 
-</tr>
+                    {{ request.status }}
 
-</tbody>
+                </span>
 
-</table>
+            </td>
+
+            <td>
+
+                {{ request.createdAt | date:'medium' }}
+
+            </td>
+
+            <td>
+
+                <button
+
+                    class="view-btn"
+
+                    (click)="viewDetails(request)">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                    View
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        <tr *ngIf="requests.length === 0">
+
+            <td colspan="6" class="empty">
+
+                No recovery requests found.
+
+            </td>
+
+        </tr>
+
+        </tbody>
+       
+    </table>
+    
+     <div class="table-footer">
+
+    <div>
+
+        Showing
+
+{{ startRecord }}
+
+-
+
+{{ endRecord }}
+
+of
+
+{{ filteredRequests.length }}
+
+    </div>
+
+    <div class="pagination">
+
+        <button
+
+            (click)="previousPage()"
+
+            [disabled]="currentPage===1">
+
+            <i class="fa-solid fa-chevron-left"></i>
+
+        </button>
+
+        <span>
+
+            Page
+
+            {{ currentPage }}
+
+            of
+
+            {{ totalPages }}
+
+        </span>
+
+        <button
+
+            (click)="nextPage()"
+
+            [disabled]="currentPage===totalPages">
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+    </div>
 
 </div>
 
-<!-- ===================================== -->
-<!-- RECOVERY DETAILS DRAWER -->
-<!-- ===================================== -->
+</div>
+
+<!-- ===================== -->
+<!-- Details Drawer -->
+<!-- ===================== -->
 
 <div
+
     class="drawer-overlay"
+
     *ngIf="showDetails"
+
     (click)="closeDetails()">
 
     <aside
+
         class="details-drawer"
+
         (click)="$event.stopPropagation()">
 
         <!-- Header -->
@@ -205,13 +340,14 @@ class="badge"
 
                 <small>
 
-                    {{selectedRequest?.id}}
+                    {{ selectedRequest?.id }}
 
                 </small>
 
             </div>
 
             <button
+
                 (click)="closeDetails()">
 
                 <i class="fa-solid fa-xmark"></i>
@@ -232,45 +368,27 @@ class="badge"
 
             <p>
 
-                {{selectedRequest?.client}}
+                {{ selectedRequest?.client }}
 
             </p>
 
         </div>
 
-        <!-- Email -->
+        <!-- Identifier -->
 
         <div class="detail-card">
 
             <h4>
 
-                Email
+                Identifier
 
             </h4>
 
             <p>
 
-                {{selectedRequest?.email}}
+                {{ selectedRequest?.identifier }}
 
             </p>
-
-        </div>
-
-        <!-- OTP -->
-
-        <div class="detail-card">
-
-            <h4>
-
-                OTP Code
-
-            </h4>
-
-            <code>
-
-                {{selectedRequest?.otp}}
-
-            </code>
 
         </div>
 
@@ -285,46 +403,66 @@ class="badge"
             </h4>
 
             <span
-                class="badge"
-                [ngClass]="selectedRequest?.status.toLowerCase()">
 
-                {{selectedRequest?.status}}
+                class="badge"
+
+                [ngClass]="selectedRequest?.status?.toLowerCase()">
+
+                {{ selectedRequest?.status }}
 
             </span>
 
         </div>
 
-        <!-- IP -->
+        <!-- Requested -->
 
         <div class="detail-card">
 
             <h4>
 
-                IP Address
+                Requested At
 
             </h4>
 
             <p>
 
-                {{selectedRequest?.ip}}
+                {{ selectedRequest?.createdAt | date:'medium' }}
 
             </p>
 
         </div>
 
-        <!-- Date -->
+        <!-- Verified -->
 
         <div class="detail-card">
 
             <h4>
 
-                Request Time
+                Verified At
 
             </h4>
 
             <p>
 
-                {{selectedRequest?.date}}
+                {{ selectedRequest?.verifiedAt ? (selectedRequest?.verifiedAt | date:'medium') : '-' }}
+
+            </p>
+
+        </div>
+
+        <!-- Expires -->
+
+        <div class="detail-card">
+
+            <h4>
+
+                Expires At
+
+            </h4>
+
+            <p>
+
+                {{ selectedRequest?.expiresAt | date:'medium' }}
 
             </p>
 
@@ -342,19 +480,41 @@ class="badge"
 
             <div class="timeline-item">
 
+                <i class="fa-solid fa-paper-plane"></i>
+
+                <div>
+
+                    <strong>
+
+                        Recovery Requested
+
+                    </strong>
+
+                    <small>
+
+                        {{ selectedRequest?.createdAt | date:'medium' }}
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="timeline-item">
+
                 <i class="fa-solid fa-circle-check"></i>
 
                 <div>
 
                     <strong>
 
-                        Request Created
+                        OTP Verified
 
                     </strong>
 
                     <small>
 
-                        Recovery request received.
+                        {{ selectedRequest?.verifiedAt ? (selectedRequest?.verifiedAt | date:'medium') : 'Not yet verified' }}
 
                     </small>
 
@@ -364,41 +524,19 @@ class="badge"
 
             <div class="timeline-item">
 
-                <i class="fa-solid fa-envelope"></i>
+                <i class="fa-solid fa-lock"></i>
 
                 <div>
 
                     <strong>
 
-                        Email Sent
+                        Current Status
 
                     </strong>
 
                     <small>
 
-                        OTP email delivered.
-
-                    </small>
-
-                </div>
-
-            </div>
-
-            <div class="timeline-item">
-
-                <i class="fa-solid fa-key"></i>
-
-                <div>
-
-                    <strong>
-
-                        OTP Verification
-
-                    </strong>
-
-                    <small>
-
-                        Waiting for verification.
+                        {{ selectedRequest?.status }}
 
                     </small>
 
@@ -408,23 +546,19 @@ class="badge"
 
         </div>
 
-        <!-- Actions -->
+        <!-- Footer -->
 
         <div class="drawer-actions">
 
-            <button class="secondary">
+            <button
 
-                <i class="fa-solid fa-paper-plane"></i>
+                class="primary"
 
-                Resend OTP
-
-            </button>
-
-            <button class="primary">
+                (click)="closeDetails()">
 
                 <i class="fa-solid fa-check"></i>
 
-                Verify
+                Close
 
             </button>
 

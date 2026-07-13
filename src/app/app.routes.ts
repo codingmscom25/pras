@@ -12,6 +12,7 @@ import { NewPassword } from './auth/new-password/new-password';
 import { Clients } from './dashboard/clients/clients';
 import { ApiDocs } from './dashboard/api-docs/api-docs';
 import { Settings } from './dashboard/settings/settings';
+import { DeveloperGuide } from './dashboard/developer-guide/developer-guide';
 
 export const routes: Routes = [
 
@@ -78,7 +79,7 @@ export const routes: Routes = [
       {
         path: 'api-logs',
         component: Logs,
-        title: 'Api-Logs'
+        title: 'Api Logs'
       },
 
       {
@@ -90,7 +91,7 @@ export const routes: Routes = [
       {
         path: 'api-docs',
         component: ApiDocs,
-        title: 'api-docs'
+        title: 'Api Docs'
       },
 
       {
@@ -103,6 +104,11 @@ export const routes: Routes = [
         path: 'clients',
         component: Clients,
         title: 'Clients'
+      },
+      {
+        path: 'guides',
+        component: DeveloperGuide,
+        title: 'Developer Guide'
       }
 
     ]

@@ -16,7 +16,7 @@
 
     </div>
 
-    <button>
+    <button routerLink="/admin/clients">
 
         <i class="fa-solid fa-plus"></i>
 
@@ -26,7 +26,9 @@
 
 </section>
 
+<!-- ============================= -->
 <!-- Statistics -->
+<!-- ============================= -->
 
 <section class="stats-grid">
 
@@ -48,23 +50,17 @@
 
             </div>
 
-            <span>
-
-                {{card.change}}
-
-            </span>
-
         </div>
 
         <h2>
 
-            {{card.value}}
+            {{ card.value }}
 
         </h2>
 
         <p>
 
-            {{card.title}}
+            {{ card.title }}
 
         </p>
 
@@ -72,7 +68,9 @@
 
 </section>
 
+<!-- ============================= -->
 <!-- Quick Actions -->
+<!-- ============================= -->
 
 <section class="quick-actions">
 
@@ -84,7 +82,7 @@
 
     <div class="actions-grid">
 
-        <button>
+        <button routerLink="/admin/clients">
 
             <i class="fa-solid fa-user-plus"></i>
 
@@ -92,15 +90,15 @@
 
         </button>
 
-        <button>
+        <button routerLink="/admin/clients">
 
-            <i class="fa-solid fa-key"></i>
+            <i class="fa-solid fa-users"></i>
 
-            Generate API Key
+            Manage Clients
 
         </button>
 
-        <button>
+        <button routerLink="/admin/api-docs">
 
             <i class="fa-solid fa-book"></i>
 
@@ -108,17 +106,25 @@
 
         </button>
 
-        <button>
+        <button routerLink="/admin/requests">
 
-            <i class="fa-solid fa-chart-line"></i>
+            <i class="fa-solid fa-key"></i>
 
-            Reports
+            Recovery Requests
 
         </button>
 
     </div>
 
-    <section class="charts">
+</section>
+
+<!-- ============================= -->
+<!-- Charts -->
+<!-- ============================= -->
+
+<section class="charts">
+
+    <!-- Recovery -->
 
     <div class="chart-card">
 
@@ -140,19 +146,19 @@
 
             </div>
 
-            <button>
+            <button routerLink="/admin/requests">
 
-                View Report
+                View Requests
 
             </button>
 
         </div>
 
-        <canvas id="recoveryChart">
-
-        </canvas>
+        <canvas id="recoveryChart"></canvas>
 
     </div>
+
+    <!-- Success -->
 
     <div class="chart-card small">
 
@@ -162,7 +168,7 @@
 
                 <h3>
 
-                    Success Rate
+                    Recovery Status
 
                 </h3>
 
@@ -174,14 +180,264 @@
 
             </div>
 
+            <div class="success-rate">
+
+                {{ dashboard?.successRate || 0 }}%
+
+            </div>
+
         </div>
 
-        <canvas id="successChart">
-
-        </canvas>
+        <canvas id="successChart"></canvas>
 
     </div>
 
 </section>
+
+<section class="dashboard-bottom">
+
+    <div class="bottom-card">
+
+        <div class="card-header">
+
+            <h3>
+
+                Recent Recovery Requests
+
+            </h3>
+
+        </div>
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>Client</th>
+
+                <th>Identifier</th>
+
+                <th>Status</th>
+
+                <th>Date</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr *ngFor="let recovery of recentRecoveries">
+
+                <td>
+
+                    {{ recovery.client }}
+
+                </td>
+
+                <td>
+
+                    {{ recovery.identifier }}
+
+                </td>
+
+                <td>
+
+                    <span
+
+                        class="badge"
+
+                        [ngClass]="recovery.status.toLowerCase()">
+
+                        {{ recovery.status }}
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    {{ recovery.createdAt | date:'short' }}
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="bottom-card">
+
+        <div class="card-header">
+
+            <h3>
+
+                Top Active Clients
+
+            </h3>
+
+        </div>
+
+        <div
+
+            class="client-row"
+
+            *ngFor="let client of topClients">
+
+            <div>
+
+                <strong>
+
+                    {{ client.client }}
+
+                </strong>
+
+            </div>
+
+            <span>
+
+                {{ client.recoveries }}
+
+                Requests
+
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ============================= -->
+<!-- Dashboard Summary -->
+<!-- ============================= -->
+
+<section class="dashboard-summary">
+
+    <div class="summary-card">
+
+        <h3>
+
+            Platform Summary
+
+        </h3>
+
+        <div class="summary-item">
+
+            <span>
+
+                Total Clients
+
+            </span>
+
+            <strong>
+
+                {{ dashboard?.totalClients }}
+
+            </strong>
+
+        </div>
+
+        <div class="summary-item">
+
+            <span>
+
+                Active Clients
+
+            </span>
+
+            <strong>
+
+                {{ dashboard?.activeClients }}
+
+            </strong>
+
+        </div>
+
+        <div class="summary-item">
+
+            <span>
+
+                Inactive Clients
+
+            </span>
+
+            <strong>
+
+                {{ dashboard?.inactiveClients }}
+
+            </strong>
+
+        </div>
+
+        <div class="summary-item">
+
+            <span>
+
+                Total Recoveries
+
+            </span>
+
+            <strong>
+
+                {{ dashboard?.totalRecoveries }}
+
+            </strong>
+
+        </div>
+
+        <div class="summary-item">
+
+            <span>
+
+                Completed
+
+            </span>
+
+            <strong>
+
+                {{ dashboard?.completedRecoveries }}
+
+            </strong>
+
+        </div>
+
+        <div class="summary-item">
+
+            <span>
+
+                Pending
+
+            </span>
+
+            <strong>
+
+                {{ dashboard?.pendingRecoveries }}
+
+            </strong>
+
+        </div>
+
+        <div class="summary-item">
+
+            <span>
+
+                Expired
+
+            </span>
+
+            <strong>
+
+                {{ dashboard?.expiredRecoveries }}
+
+            </strong>
+
+        </div>
+
+    </div>
 
 </section>

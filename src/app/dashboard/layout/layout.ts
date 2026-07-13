@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-layout',
@@ -10,10 +11,37 @@ import { RouterModule } from '@angular/router';
 })
 export class Layout {
  sidebarOpen = true;
+ showProfileMenu = false;
 
-  constructor() {
-    this.checkScreen();
+showNotifications = false;
+
+notifications = [
+
+  {
+    icon: 'fa-user-plus',
+    title: 'New client registered',
+    time: '2 min ago'
+  },
+
+  {
+    icon: 'fa-key',
+    title: 'Password recovery completed',
+    time: '18 min ago'
+  },
+
+  {
+    icon: 'fa-triangle-exclamation',
+    title: 'API returned 500 error',
+    time: '1 hour ago'
   }
+
+];
+
+  constructor(
+  private router: Router
+) {
+  this.checkScreen();
+}
 
   @HostListener('window:resize')
   onResize() {
@@ -49,5 +77,55 @@ export class Layout {
     }
 
   }
+
+  toggleProfileMenu() {
+
+  this.showProfileMenu =
+    !this.showProfileMenu;
+
+  this.showNotifications = false;
+
+}
+
+toggleNotifications() {
+
+  this.showNotifications =
+    !this.showNotifications;
+
+  this.showProfileMenu = false;
+
+}
+
+logout() {
+
+  Swal.fire({
+
+    title: 'Logout?',
+
+    text: 'You are about to end this session.',
+
+    icon: 'question',
+
+    showCancelButton: true,
+
+    confirmButtonText: 'Logout',
+
+    cancelButtonText: 'Cancel',
+
+    confirmButtonColor: '#C6A15B'
+
+  }).then(result => {
+
+    if (result.isConfirmed) {
+
+      localStorage.clear();
+
+      this.router.navigate(['/']);
+
+    }
+
+  });
+
+}
 }
 

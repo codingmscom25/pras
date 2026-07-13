@@ -1,18 +1,11 @@
 <section class="page-header">
 
-    <div>
+  <div>
+    <h1>Clients</h1>
+    <p>Manage applications connected to PRAS API.</p>
+  </div>
 
-        <h1>Clients</h1>
-
-        <p>
-
-            Manage applications connected to PRAS API.
-
-        </p>
-
-    </div>
-
-    <button
+  <button
     class="primary"
     (click)="openAddModal()">
 
@@ -20,298 +13,357 @@
 
     Add Client
 
-</button>
+  </button>
 
 </section>
 
-<!-- Summary -->
+<!-- ================= Summary ================= -->
 
 <section class="summary-grid">
 
-    <div class="summary-card">
+  <div class="summary-card">
 
-        <i class="fa-solid fa-users"></i>
+    <i class="fa-solid fa-users"></i>
 
-        <h2>124</h2>
+    <h2>{{ totalClients }}</h2>
 
-        <p>Total Clients</p>
+    <p>Total Clients</p>
 
-    </div>
+  </div>
 
-    <div class="summary-card">
+  <div class="summary-card">
 
-        <i class="fa-solid fa-user-check"></i>
+    <i class="fa-solid fa-user-check"></i>
 
-        <h2>118</h2>
+    <h2>{{ activeClients }}</h2>
 
-        <p>Active Clients</p>
+    <p>Active Clients</p>
 
-    </div>
+  </div>
 
-    <div class="summary-card">
+  <div class="summary-card">
 
-        <i class="fa-solid fa-key"></i>
+    <i class="fa-solid fa-key"></i>
 
-        <h2>124</h2>
+    <h2>{{ totalApiKeys }}</h2>
 
-        <p>API Keys</p>
+    <p>API Keys</p>
 
-    </div>
+  </div>
 
 </section>
 
-<!-- Filters -->
+<!-- ================= Filters ================= -->
 
 <section class="filters">
 
     <input
+
         [(ngModel)]="search"
+
+        (ngModelChange)="applyFilters()"
+
         placeholder="Search client...">
 
-    <select [(ngModel)]="status">
+    <select
 
-        <option>All</option>
-        <option>Active</option>
-        <option>Inactive</option>
+        [(ngModel)]="status"
+
+        (ngModelChange)="applyFilters()">
+
+        <option value="All">All</option>
+
+        <option value="ACTIVE">Active</option>
+
+        <option value="INACTIVE">Inactive</option>
+
+    </select>
+
+    <select
+
+        [(ngModel)]="sortOrder"
+
+        (ngModelChange)="sortClients()">
+
+        <option value="ASC">
+
+            Name A-Z
+
+        </option>
+
+        <option value="DESC">
+
+            Name Z-A
+
+        </option>
 
     </select>
 
 </section>
 
-<!-- Table -->
+<!-- ================= Table ================= -->
 
 <div class="table-card">
 
-<table>
+  <table>
 
-<thead>
+    <thead>
 
-<tr>
+      <tr>
 
-<th>Client</th>
+        <th>Client</th>
 
-<th>Email</th>
+        <th>Base URL</th>
 
-<th>API Key</th>
+        <th>API Key</th>
 
-<th>Status</th>
+        <th>Status</th>
 
-<th>Actions</th>
+        <th>Actions</th>
 
-</tr>
+      </tr>
 
-</thead>
+    </thead>
 
-<tbody>
+    <tbody>
 
-<tr *ngFor="let client of clients">
+      <tr *ngFor="let client of pagedClients">
 
-<td>
+        <td>
 
-<strong>{{client.name}}</strong>
+          <strong>{{ client.name }}</strong>
 
-</td>
+        </td>
 
-<td>{{client.email}}</td>
+        <td>{{ client.baseUrl }}</td>
 
-<td>
+        <td>
 
-<div class="api-key">
+          <div class="api-key">
 
-    <code>
+            <code>
 
-        {{ client.showKey ? client.apiKey : '••••••••••••••••••••••' }}
+              {{ client.showKey ? client.apiKey : '••••••••••••••••••••••••••••' }}
 
-    </code>
-
-    <button
-        (click)="toggleApiKey(client)"
-        title="Show / Hide">
-
-        <i
-            class="fa-solid"
-            [class.fa-eye]="!client.showKey"
-            [class.fa-eye-slash]="client.showKey">
-
-        </i>
-
-    </button>
-
-</div>
-
-</td>
-
-<td>
-
-<span
-
-class="badge"
-
-[ngClass]="client.status.toLowerCase()">
-
-{{client.status}}
-
-</span>
-
-</td>
-
-<td>
-
- <div class="actions">
-
-    <button
-        (click)="openEditModal(client)"
-        title="Edit">
-
-        <i class="fa-solid fa-pen"></i>
-
-    </button>
-
-    <button
-        (click)="copyApiKey(client.apiKey)"
-        title="Copy">
-
-        <i class="fa-solid fa-copy"></i>
-
-    </button>
-
-    <button
-        (click)="generateApiKey(client)"
-        title="Generate">
-
-        <i class="fa-solid fa-key"></i>
-
-    </button>
-
-    <button
-        (click)="toggleStatus(client)"
-        title="Activate">
-
-        <i
-
-        class="fa-solid"
-
-        [class.fa-toggle-on]="client.status==='Active'"
-
-        [class.fa-toggle-off]="client.status==='Inactive'">
-
-        </i>
-
-    </button>
-
-    <button
-        title="Integration Guide">
-
-        <i class="fa-solid fa-book"></i>
-
-    </button>
-
-    <button
-        (click)="deleteClient(client)"
-        title="Delete">
-
-        <i class="fa-solid fa-trash"></i>
-
-    </button>
-
-</div>
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-<!-- ========================= -->
-
-<div
-    class="modal-overlay"
-    *ngIf="showModal">
-
-    <div class="client-modal">
-
-        <div class="modal-header">
-
-            <h2>
-
-                {{isEdit ? 'Edit Client' : 'Add Client'}}
-
-            </h2>
+            </code>
 
             <button
-                (click)="closeModal()">
 
-                <i class="fa-solid fa-xmark"></i>
+              type="button"
+
+              (click)="toggleApiKey(client)">
+
+              <i
+
+                class="fa-solid"
+
+                [class.fa-eye]="!client.showKey"
+
+                [class.fa-eye-slash]="client.showKey">
+
+              </i>
 
             </button>
 
-        </div>
+          </div>
 
-        <div class="form-group">
+        </td>
 
-            <label>
+        <td>
 
-                Client Name
+          <span
 
-            </label>
+            class="badge"
 
-            <input
-                [(ngModel)]="clientForm.name">
+            [ngClass]="client.status.toLowerCase()">
 
-        </div>
+            {{ client.status }}
 
-        <div class="form-group">
+          </span>
 
-            <label>
+        </td>
 
-                Email
+        <td>
 
-            </label>
-
-            <input
-                [(ngModel)]="clientForm.email">
-
-        </div>
-
-        <div class="form-group">
-
-            <label>
-
-                Description
-
-            </label>
-
-            <textarea
-                rows="4"
-                [(ngModel)]="clientForm.description">
-
-            </textarea>
-
-        </div>
-
-        <div class="modal-actions">
+          <div class="actions">
 
             <button
-                class="cancel"
-                (click)="closeModal()">
+              (click)="openEditModal(client)"
+              title="Edit">
 
-                Cancel
+              <i class="fa-solid fa-pen"></i>
 
             </button>
 
             <button
-                class="save"
-                (click)="saveClient()">
+              (click)="copyApiKey(client.apiKey)"
+              title="Copy">
 
-                {{isEdit ? 'Update' : 'Save Client'}}
+              <i class="fa-solid fa-copy"></i>
 
             </button>
 
-        </div>
+            <button
+              (click)="toggleStatus(client)"
+              title="Toggle Status">
+
+              <i
+
+                class="fa-solid"
+
+                [class.fa-toggle-on]="client.status === 'ACTIVE'"
+
+                [class.fa-toggle-off]="client.status === 'INACTIVE'">
+
+              </i>
+
+            </button>
+
+            <button title="Integration Guide" routerLink="/admin/guides">
+
+              <i class="fa-solid fa-book"></i>
+
+            </button>
+
+            <button
+              (click)="deleteClient(client)"
+              title="Delete">
+
+              <i class="fa-solid fa-trash"></i>
+
+            </button>
+
+          </div>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+  <div class="table-footer">
+
+    <div>
+
+        Showing
+
+        {{ startRecord }}
+
+        -
+
+        {{ endRecord }}
+
+        of
+
+        {{ filteredClients.length }}
 
     </div>
+
+    <div class="pagination">
+
+        <button
+
+            (click)="previousPage()"
+
+            [disabled]="currentPage===1">
+
+            <i class="fa-solid fa-chevron-left"></i>
+
+        </button>
+
+        <span>
+
+            Page
+
+            {{ currentPage }}
+
+            of
+
+            {{ totalPages }}
+
+        </span>
+
+        <button
+
+            (click)="nextPage()"
+
+            [disabled]="currentPage===totalPages">
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- ================= Modal ================= -->
+
+<div
+  class="modal-overlay"
+  *ngIf="showModal">
+
+  <div class="client-modal">
+
+    <div class="modal-header">
+
+      <h2>
+
+        {{ isEdit ? 'Edit Client' : 'Add Client' }}
+
+      </h2>
+
+      <button
+        (click)="closeModal()">
+
+        <i class="fa-solid fa-xmark"></i>
+
+      </button>
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Client Name</label>
+
+      <input [(ngModel)]="clientForm.name">
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Base URL</label>
+
+      <input
+        [(ngModel)]="clientForm.baseUrl"
+        placeholder="http://localhost:9090">
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button
+        class="cancel"
+        (click)="closeModal()">
+
+        Cancel
+
+      </button>
+
+      <button
+        class="save"
+        (click)="saveClient()">
+
+        {{ isEdit ? 'Update Client' : 'Save Client' }}
+
+      </button>
+
+    </div>
+
+  </div>
 
 </div>

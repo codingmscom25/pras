@@ -5,29 +5,44 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
 
-  private readonly KEY = 'pras_token';
+  private readonly TOKEN = 'pras_access_token';
 
-  save(token: string) {
+  private readonly REFRESH = 'pras_refresh_token';
 
-    localStorage.setItem(this.KEY, token);
+  setTokens(
+    access: string,
+    refresh: string
+  ): void {
+
+    localStorage.setItem(this.TOKEN, access);
+
+    localStorage.setItem(this.REFRESH, refresh);
 
   }
 
-  get(): string | null {
+  getToken(): string | null {
 
-    return localStorage.getItem(this.KEY);
+    return localStorage.getItem(this.TOKEN);
 
   }
 
-  clear() {
+  getRefreshToken(): string | null {
 
-    localStorage.removeItem(this.KEY);
+    return localStorage.getItem(this.REFRESH);
+
+  }
+
+  clear(): void {
+
+    localStorage.removeItem(this.TOKEN);
+
+    localStorage.removeItem(this.REFRESH);
 
   }
 
   isLoggedIn(): boolean {
 
-    return !!this.get();
+    return !!this.getToken();
 
   }
 
